@@ -1,0 +1,49 @@
+services:
+  nginx:
+    depends_on:
+      - frontend
+      - backend
+    container_name: nginx-dev
+    build:
+      target: development
+    image: nginx-dev:${VERSION_NGINX}
+
+  frontend:
+    depends_on:
+      postgres:
+        condition: service_healthy
+    container_name: front-dev
+    build:
+      target: development
+    image: front-dev:${VERSION_FRONT}
+    volumes:
+      - ./frontend/:/srv/app/
+
+  backend:
+    depends_on:
+      postgres:
+        condition: service_healthy
+    container_name: back-dev
+    build:
+      target: development
+    image: back-dev:${VERSION_BACK}
+    volumes:
+      - ./backend/:/srv/app/
+
+  postgres:
+    container_name: postgres-dev
+    build:
+      target: development
+    image: postgres-dev:${VERSION_POSTGRES}
+    healthcheck:
+      test: 'psql -c --username "$POSTGRES_USER" --dbname "$POSTGRES_DB"'
+      interval: 10s
+      timeout: 3s
+      retries: 2
+    volumes:
+      - postgres-db-volume:/var/lib/postgresql/data
+
+volumes:
+  postgres-db-volume:
+    name: postgres-dev-volume
+    driver: local

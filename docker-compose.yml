@@ -1,0 +1,62 @@
+
+services:
+  nginx:
+    build:
+      context: ./
+      dockerfile: DockerFiles/Nginx/Dockerfile
+      args:
+        VERSION_NGINX: ${VERSION_NGINX}
+    env_file:
+      - .env
+    ports:
+      - ${PORT_NGINX_HOST}:443
+    networks:
+      - proxy-net
+    restart: always
+
+  frontend:
+    build:
+      context: ./
+      dockerfile: DockerFiles/react/Dockerfile
+      args:
+        VERSION_FRONT: ${VERSION_FRONT}
+    env_file:
+      - .env
+    expose:
+      - ${PORT_FRONT}
+    networks:
+      - proxy-net
+    restart: always
+  
+  backend:
+    build:
+      context: ./
+      dockerfile: DockerFiles/nestjs/Dockerfile
+      args:
+        VERSION_BACK: ${VERSION_BACK}
+    env_file:
+      - .env
+    expose:
+      - ${PORT_BACK}
+    networks:
+      - proxy-net
+    restart: always
+
+  postgres:
+    build:
+      context: ./
+      dockerfile: DockerFiles/Postgresql/Dockerfile
+      args:
+        VERSION_POSTGRES: ${VERSION_POSTGRES}
+    env_file:
+      - .env
+    expose:
+      - ${PORT_POSTGRES}
+    networks:
+      - proxy-net
+    restart: always
+
+networks:
+  proxy-net:
+    name: proxy-net
+    driver: bridge
