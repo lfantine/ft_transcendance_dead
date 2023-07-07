@@ -2,6 +2,8 @@ ARG VERSION_FRONT=${VERSION_FRONT}
 
 FROM node:${VERSION_FRONT} AS base
 
+ARG PORT_FRONT=${PORT_FRONT}
+
 RUN apk add curl
 
 ################################################################################
@@ -16,7 +18,7 @@ ENV NODE_ENV="development"
 USER node
 WORKDIR /srv/app
 
-CMD npm i && npm run dev
+CMD npm i && npm run dev -- -p ${PORT_FRONT}
 
 
 ################################################################################
@@ -39,4 +41,4 @@ RUN npm i
 
 RUN npm run build
 
-CMD npm run start
+CMD npm run start -- -p ${PORT_FRONT}
