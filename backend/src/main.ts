@@ -7,6 +7,6 @@ async function bootstrap() {
   app.setGlobalPrefix('api');
   await app.listen(3000);
   const gameServer = new Server();
-  gameServer.define("myRoom", gameRoom);
+  //gameServer.define("myRoom", gameRoom);
 }
 bootstrap();
