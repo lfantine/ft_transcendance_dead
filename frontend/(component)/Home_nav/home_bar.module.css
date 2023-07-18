@@ -1,0 +1,69 @@
+@import url('https://fonts.googleapis.com/css2?family=Belanosima:wght@400;600;700&display=swap');
+
+.spacer_top {
+	width: 100%;
+	background-color: green;
+}
+
+.bar {
+	width: 400px;
+	height: 600px;
+	margin: auto;
+
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	gap: 50px;
+}
+
+.Link {
+	color: black;
+	text-decoration: none;
+}
+
+.Hb {
+	width: 300px;
+	height: 80px;
+	border-radius: 20px;
+	border: 3px solid black;
+	margin: 0 auto;
+
+	background-color: azure;
+	background: url('/inside_v.png');
+	background-repeat: no-repeat;
+	background-size: cover;
+
+	color: black;
+	font-family: 'Belanosima', sans-serif;
+	font-size: 40px;
+
+	transition: 0.2s;
+}
+.Hb:hover {
+	transform: scale(1.2);
+}
+
+.game_dev {
+	width: 300px;
+	height: 80px;
+	border-radius: 20px;
+	border: 3px solid black;
+	margin: 0 auto;
+
+	background-color: azure;
+
+	color: black;
+	font-family: 'Belanosima', sans-serif;
+	font-size: 40px;
+
+	transform: scale(0.6);
+}
+.game_dev:hover {
+	transform: scale(0.7);
+}
+
+.select {
+	margin: auto;
+	text-align: center;
+	margin-top: 10px;
+}
