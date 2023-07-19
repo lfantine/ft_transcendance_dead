@@ -2,6 +2,7 @@
 
 import React, { useEffect } from "react";
 import * as setting_game from './setting_game';
+import { useRef } from 'react';
 
 const PLAYER_HEIGHT = 100;
 const PLAYER_WIDTH = 5;
@@ -9,7 +10,11 @@ const PLAYER_WIDTH = 5;
 export default function Game() {
 
   useEffect(() => {
-    let canvas = document.getElementById('canvas');
+    let canvas = document.getElementById('canvas') as HTMLCanvasElement;
+    if (!canvas) {
+      console.log("canva is null");
+      return ;
+    }
     let context = canvas.getContext('2d');
     let game = {
         player: {
@@ -38,8 +43,11 @@ export default function Game() {
       requestAnimationFrame(play);
     }
     
+    
     function playerMove(event:any) {
       // Get the mouse location in the canvas
+      if (!canvas)
+        return ;
       var canvasLocation = canvas.getBoundingClientRect();
       var mouseLocation = event.clientY - canvasLocation.y;
       game.player.y = mouseLocation - PLAYER_HEIGHT / 2;
@@ -91,6 +99,10 @@ export default function Game() {
     }
 
     function draw() {
+      if (!context) {
+        console.log('context is null');
+        return ;
+      }
       context.fillStyle = 'black';
       context.fillRect(0, 0, setting_game.canvas_width, setting_game.canvas_height);
 

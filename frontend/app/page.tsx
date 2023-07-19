@@ -38,7 +38,7 @@ export default function Home() {
       <div className={Style.Page}>
         <div style={{height: '50px', width: '100%'}}></div>
         <div className={Style.W}><h1 id="W" className={Style.soft}>{title}</h1></div>
-        <div style={{height: '50px', width: '100%'}}></div>
+        <div style={{height: '150px', width: '100%'}}></div>
         <Hnav navActive={true} />
       </div>
     </main>

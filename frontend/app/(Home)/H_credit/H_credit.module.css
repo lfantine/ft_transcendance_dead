@@ -1,0 +1,33 @@
+.content {
+	height: fit-content;
+	min-height: 700px;
+	width: 800px;
+
+	margin: auto;
+
+	background-color: azure;
+
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+.credit {
+	font-size: 110px;
+	margin: auto;
+	margin-bottom: 20px;
+	width: fit-content;
+}
+
+@media screen and (max-width: 900px) {
+	.content {
+		width: 500px;
+	}
+}
+
+@media screen and (min-width: 2000px) {
+	.content {
+		width: 1500px;
+	}
+}
+

@@ -41,6 +41,7 @@ const Hnav: React.FC<INavbar> = (Content) => {
 			<div className={style.bar}>
 				<div className={style.Hb} onClick={handleConnect}><h3 className={style.select}>PLAY</h3></div>
 				<div className={style.Hb}><Link className={style.Link} href={routes.HOME_CREDIT}><h3 className={style.select}>Credit</h3></Link></div>
+				<div className={style.Hb}><Link className={style.Link} href={routes.HOME_LOGIN}><h3 className={style.select}>Login</h3></Link></div>
 				<div className={style.game_dev}>
 					<Link className={style.Link} href={routes.GAME}> <h3 className={style.select}>Game dev</h3> </Link>
 				</div>
