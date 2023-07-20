@@ -1,0 +1,61 @@
+@import url('https://fonts.googleapis.com/css2?family=Lumanosimo&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600&display=swap');
+.need {
+	width: 90%;
+	height: fit-content;
+	margin: auto;
+
+	font-size: 30px;
+	/* background-color: rgba(240, 248, 255, 0.315); */
+	border-bottom: 3px solid white;
+
+	display: flex;
+	flex-direction: row;
+}
+
+.input {
+	background-color: rgba(240, 248, 255, 0);
+	border: 0;
+	outline: none;
+
+	color: rgb(255, 255, 255);
+	font-size: 30px;
+	font-family: 'Kanit';
+	width: 80%;
+}
+
+.input::placeholder {
+	color: rgb(255, 255, 255);
+}
+
+.icon {
+	margin: auto;
+	width: 10%;
+}
+
+.validate {
+	width: 20%;
+	margin: auto;
+	height: fit-content;
+
+	border-radius: 10px;
+	border: 2px solid white;
+
+	background-color: rgba(0, 0, 0, 0.212);
+}
+
+.validateButton {
+	width: 100%;
+	height: fit-content;
+
+	background-color: rgba(240, 248, 255, 0);
+	border: 0;
+
+	font-size: 30px;
+	font-family: 'Kanit';
+	color: white;
+}
+
+.validateButton:hover {
+	font-weight: bold;
+}

@@ -1,0 +1,221 @@
+@import url('https://fonts.googleapis.com/css2?family=Lumanosimo&display=swap');
+
+.Main {
+	height: 100%;
+	width: 100%;
+
+	background-image: url("/back.png");
+	background-repeat: no-repeat;
+	background-position: center -0%;
+	background-size: cover;
+}
+
+.title {
+	font-size: 90px;
+	margin: auto;
+	margin-bottom: 20px;
+	width: fit-content;
+}
+
+.content {
+	height: fit-content;
+	min-height: fit-content;
+	width: 400px;
+
+	margin: auto;
+
+	background-color: rgba(0, 0, 0, 0.158);
+	border: 3px solid white;
+	border-radius: 15px;
+
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+
+	color: black;
+
+	transition: 0.25s;
+}
+
+.select {
+	min-height: 30px;
+	height: fit-content;
+	width: 400px;
+	margin: auto;
+
+	display: flex;
+	flex-direction: row;
+
+	transition: 0.25s;
+}
+
+.selectable {
+	width: 50%;
+	font-size: 40px;
+	text-align: center;
+
+	transition: 0.1s;
+}
+
+.selectablebutton {
+	height: fit-content;
+	width: fit-content;
+	font-size: 40px;
+	text-align: center;
+	background-color: rgba(255, 255, 255, 0);
+	border: 0;
+	color: white;
+}
+
+.selectable:hover {
+	transform: scale(1.1);
+}
+
+.selected {
+	font-family: 'Lumanosimo';
+	/* border-bottom: 3px solid white; */
+}
+
+.bar0 {
+	height: 3px;
+	width: 100px;
+	margin: auto;
+	margin-bottom: 10px;
+
+	background-color: white;
+
+	position: relative;
+	right: 150px;
+
+	transition: 0.2s;
+}
+
+.bar1 {
+	height: 3px;
+	width: 100px;
+	margin: auto;
+	margin-bottom: 10px;
+
+	background-color: white;
+
+	position: relative;
+	left: 150px;
+
+	transition: 0.2s;
+}
+
+.bar {
+	height: 3px;
+	width: 200px;
+	margin: auto;
+	margin-bottom: 10px;
+
+	background-color: white;
+
+	transition: 0.2s;
+}
+
+.bar_log {
+	position: relative;
+	/* right: 150px; */
+
+	width: 100px;
+
+	animation: bar_left 0.25s linear forwards;
+}
+
+.bar_reg {
+	position: relative;
+	/* left: 150px; */
+
+	width: 150px;
+
+	animation: bar_right 0.25s linear forwards;
+}
+
+/* Define the animation keyframes */
+@keyframes bar_right {
+	0% {
+		transform: translateX(-100px);
+	}
+	100% {
+		transform: translateX(100px);
+	}
+}
+
+@keyframes bar_left {
+	0% {
+		transform: translateX(100px);
+	}
+	100% {
+		transform: translateX(-100px);
+	}
+}
+
+@media screen and (min-width: 700px) {
+	.content {
+		width: 600px;
+	}
+	.select {
+		width: 600px;
+	}
+
+	/* Define the animation keyframes */
+	@keyframes bar_right {
+		0% {
+			transform: translateX(-150px);
+		}
+		100% {
+			transform: translateX(150px);
+		}
+	}
+
+	@keyframes bar_left {
+		0% {
+			transform: translateX(150px);
+		}
+		100% {
+			transform: translateX(-150px);
+		}
+	}
+}
+
+@media screen and (min-width: 1400px) {
+	.content {
+		width: 800px;
+	}
+	.select {
+		width: 800px;
+	}
+
+	/* Define the animation keyframes */
+	@keyframes bar_right {
+		0% {
+			transform: translateX(-200px);
+		}
+		100% {
+			transform: translateX(200px);
+		}
+	}
+
+	@keyframes bar_left {
+		0% {
+			transform: translateX(200px);
+		}
+		100% {
+			transform: translateX(-200px);
+		}
+	}
+}
+
+.exit {
+	width: fit-content;
+	height: fit-content;
+
+	margin: auto;
+	margin-top: 40px;
+}
+
+.exitBut {
+	font-size: 40px;
+}

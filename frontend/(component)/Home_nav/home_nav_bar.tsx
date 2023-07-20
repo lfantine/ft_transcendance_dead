@@ -29,7 +29,7 @@ const Hnav: React.FC<INavbar> = (Content) => {
 			const axiosI: AxiosInstance = axios.create({
 				baseURL: '',
 			});
-			await axiosI.get('https://localhost:3000/auth/testing');
+			await axiosI.get('https://localhost/api');
 			console.log("test finished");
 		} catch (e) {
 			console.log("test error");

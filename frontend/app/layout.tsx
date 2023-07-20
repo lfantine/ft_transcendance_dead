@@ -16,7 +16,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="fr">
-      <body className={inter.className}>{children}</body>
+       {/* <QueryProvider> */}
+        <body className={inter.className}>{children}</body>
+       {/* </QueryProvider> */}
     </html>
   )
 }
