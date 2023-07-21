@@ -1,11 +1,11 @@
 'use client'
 
-import { useRouter } from 'next/navigation';
-import style from './home_layout.module.css'
 import axios, { AxiosInstance } from 'axios';
+import style from './dash_layout.module.css'
 import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 
-export default function HomeLayout({
+export default function DashLayout({
   children,
 }: {
   children: React.ReactNode
@@ -21,14 +21,15 @@ export default function HomeLayout({
           baseURL: '',
         });
         const rep = await axiosI.get('https://localhost/api/auth/isLogin',  { withCredentials: true});
-        if (rep.data)
-          push("/TEST")
+        if (!rep.data)
+          push("/")
       } catch (e) {
-        console.log("test error");
+        push("/")
       }
     };
+
     checkLog();
-	}, [])
+  }, [])
 
   return (
     <main className={style.Main}>

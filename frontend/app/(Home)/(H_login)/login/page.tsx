@@ -8,6 +8,7 @@ import { FaUserAlt, FaKey } from "react-icons/fa";
 import * as Joi from 'joi';
 import { useForm } from 'react-hook-form';
 import axios, { AxiosInstance } from 'axios';
+import { useRouter } from 'next/navigation';
 
 type lFormInterface = {
 	username: string;
@@ -24,29 +25,33 @@ const valideForm = Joi.object({
 		.pattern(new RegExp('^[a-zA-Z0-9]{6,30}$'))
 });
 
-const Send = async (form: lFormInterface) => {
-  console.log(form);
-  const validform = valideForm.validate(form);
-  if (validform.error) {
-    console.log(validform.error.details);
-  }
-  else
-  {
-    const axiosI: AxiosInstance = axios.create({
-      baseURL: '',
-    });
-    try {
-      const rep = await axiosI.post('https://localhost/api/auth/login', {data: form});
-      console.log(rep.data);
-    } catch (e) {
-      console.log('error');
-    }
-  }
-}
-
 export default function connect() {
 
   const { register, handleSubmit } = useForm<lFormInterface>();
+  const { push } = useRouter();
+
+  const Send = async (form: lFormInterface) => {
+    console.log(form);
+    const validform = valideForm.validate(form);
+    if (validform.error) {
+      console.log(validform.error.details);
+    }
+    else
+    {
+      const axiosI: AxiosInstance = axios.create({
+        baseURL: '',
+      });
+      try {
+        const rep = await axiosI.post('https://localhost/api/auth/login', {data: form});
+        if (!rep.data.error)
+          push('/TEST');
+        else
+        console.log('error');
+      } catch (e) {
+        console.log('error');
+      }
+    }
+  }
 
   return (
     <main>

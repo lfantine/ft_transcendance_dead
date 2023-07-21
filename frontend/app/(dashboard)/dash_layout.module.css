@@ -1,0 +1,10 @@
+.Main {
+	height: 100%;
+	width: 100%;
+
+	/* background-image: url("/back.png"); */
+	background-color: bisque;
+	background-repeat: no-repeat;
+	background-position: center -0%;
+	background-size: cover;
+}
