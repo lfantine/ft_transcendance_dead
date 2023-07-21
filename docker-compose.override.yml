@@ -36,6 +36,8 @@ services:
       interval: 10s
       timeout: 3s
       retries: 2
+    expose:
+      - ${PORT_POSTGRES}
     volumes:
       - postgress-db-volume:/var/lib/postgresql/data
 

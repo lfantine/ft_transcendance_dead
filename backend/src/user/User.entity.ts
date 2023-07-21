@@ -6,17 +6,13 @@ class User {
 	@PrimaryGeneratedColumn("uuid")
 	id: string;
 
+	// For both Users
+
 	@Column("text", {unique: true})
 	mail: string;
 
 	@Column("text", {unique: true})
 	username: string;
-
-	@Column()
-	token: string;
-
-	@Column()
-	refresh_token: string;
 
 	@Column({type: 'bytea'})
 	pic: Buffer;
@@ -29,6 +25,22 @@ class User {
 
 	@Column()
 	MMR: number;
+
+	// For 42 User
+
+	@Column()
+	token: string;
+
+	@Column()
+	refresh_token: string;
+
+	// For normal User
+
+	@Column()
+	is42: boolean;
+
+	@Column()
+	password: string;
 }
 
 export default User;

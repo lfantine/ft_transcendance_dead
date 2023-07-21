@@ -1,13 +1,16 @@
 class CreateUserDto{
 	mail: string;
-	token: string;
-	is42: boolean;
-	refresh_token: string;
 	username: string;
 	level: number;
 	pic: Buffer;
 	MMR: number;
 	desc: string;
+	// For 42 User
+	token: string;
+	refresh_token: string;
+	// For normal User
+	is42: boolean;
+	password: string;
 }
 
 export default CreateUserDto;

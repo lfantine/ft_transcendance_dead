@@ -9,6 +9,8 @@ import { FaUserAlt, FaKey } from "react-icons/fa";
 import { AiTwotoneMail } from "react-icons/ai";
 import { useForm } from 'react-hook-form';
 import { send } from 'process';
+import axios, { AxiosInstance } from 'axios';
+import { ApiResponse } from '@/utils/api_response';
 
 type rFormInterface = {
 	username: string;
@@ -30,15 +32,23 @@ const valideForm = Joi.object({
 	confirmPassword: Joi.ref('password'),
 });
 
-const Send = (form: rFormInterface) => {
-  // console.log(form);
+const Send = async (form: rFormInterface) => {
+  console.log(form);
   const validform = valideForm.validate(form);
   if (validform.error) {
     console.log(validform.error.details);
   }
   else
   {
-    console.log('form okay');
+    const axiosI: AxiosInstance = axios.create({
+      baseURL: '',
+    });
+    try {
+      const rep = await axiosI.post('https://localhost/api/auth/register', {data: form});
+      console.log(rep.data);
+    } catch (e) {
+      console.log('error');
+    }
   }
 }
 
