@@ -129,11 +129,10 @@ export default function Game() {
   
 
   return (
-    <>
+    <main>
+      <div style={{height: '1px', width: '100%'}}></div> {/* cette ligne est fait pour cancel le probleme de top margin*/}
       <h1>Pong</h1>
-      <main>
-        <canvas id="canvas" width="640" height="480"></canvas>
-      </main>
-    </>
+      <canvas id="canvas" width="640" height="480"></canvas>
+    </main>
   );
 }

@@ -16,7 +16,6 @@ export default function HomeLayout({
   useEffect(() => {
     const checkLog = async () => {
       try {
-        console.log('test');
         const axiosI: AxiosInstance = axios.create({
           baseURL: '',
         });
@@ -24,7 +23,7 @@ export default function HomeLayout({
         if (rep.data)
           push("/TEST")
       } catch (e) {
-        console.log("test error");
+        console.log("error with check log");
       }
     };
     checkLog();

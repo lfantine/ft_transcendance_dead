@@ -16,7 +16,6 @@ export default function DashLayout({
   useEffect(() => {
     const checkLog = async () => {
       try {
-        console.log('test');
         const axiosI: AxiosInstance = axios.create({
           baseURL: '',
         });

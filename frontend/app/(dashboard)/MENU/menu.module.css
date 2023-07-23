@@ -1,0 +1,16 @@
+.title {
+	margin: auto;
+	font-size: 40px;
+	color: black;
+	width: fit-content;
+	height: fit-content;
+
+	margin-bottom: 20px;
+}
+
+.button {
+	height: fit-content;
+	width: fit-content;
+	font-size: 25px;
+	margin: auto;
+}

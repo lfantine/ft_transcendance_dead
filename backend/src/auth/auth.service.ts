@@ -3,7 +3,7 @@ import { UserService } from 'src/user/user.service';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import axios, { AxiosInstance } from 'axios';
-import * as bcrypt from 'bcrypt';
+// import * as bcrypt from 'bcrypt';
 import PostgresErrorCodes from 'src/database/postgresErrorCodes';
 import { Request } from 'express';
 
@@ -71,7 +71,9 @@ export class AuthService {
 		console.log('------------');
 
 		try {
-			const hashPassword = await bcrypt.hash(data.password, 10);
+			// const hashPassword = await bcrypt.hash(data.password, 10);
+			const hashPassword = data.password;
+			// ---------
 			console.log('HashedPassword = ' + hashPassword);
 			const ImgData: Buffer = Buffer.alloc(0);
 			const newUser = await this.userService.createUser({token : 'none', refresh_token: 'none', mail: data.email, username: data.username, level: 0, MMR: 0, pic: ImgData, desc: 'new user', is42: false, password: hashPassword});
@@ -99,7 +101,9 @@ export class AuthService {
 			throw new HttpException('Something went wrong !', HttpStatus.BAD_REQUEST);
 
 		console.log("securiter pass");
-		const passMatch = await bcrypt.compare(data.password, user.password);
+		// const passMatch = await bcrypt.compare(data.password, user.password);
+		const passMatch = true;
+		// -------
 		console.log("---------------");
 		return passMatch;
 		

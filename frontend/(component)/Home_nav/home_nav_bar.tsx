@@ -42,7 +42,6 @@ const Hnav: React.FC<INavbar> = (Content) => {
 	useEffect(() => {
 	const checkLog = async () => {
 			try {
-				console.log('test');
 				const axiosI: AxiosInstance = axios.create({
 					baseURL: '',
 				});
