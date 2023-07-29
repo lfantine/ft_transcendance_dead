@@ -33,7 +33,6 @@ const valideForm = Joi.object({
 });
 
 const Send = async (form: rFormInterface) => {
-  console.log(form);
   const validform = valideForm.validate(form);
   if (validform.error) {
     console.log(validform.error.details);

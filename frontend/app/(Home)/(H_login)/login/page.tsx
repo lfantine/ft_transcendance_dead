@@ -31,7 +31,6 @@ export default function connect() {
   const { push } = useRouter();
 
   const Send = async (form: lFormInterface) => {
-    console.log(form);
     const validform = valideForm.validate(form);
     if (validform.error) {
       console.log(validform.error.details);

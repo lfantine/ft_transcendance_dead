@@ -25,9 +25,9 @@
     "@nestjs/core": "^10.0.0",
     "@nestjs/jwt": "^10.1.0",
     "@nestjs/platform-express": "^10.0.0",
-    "@nestjs/platform-socket.io": "^10.1.0",
+    "@nestjs/platform-socket.io": "^10.1.2",
     "@nestjs/typeorm": "^10.0.0",
-    "@nestjs/websockets": "^10.1.0",
+    "@nestjs/websockets": "^10.1.2",
     "axios": "^1.4.0",
     "cookie-parser": "^1.4.6",
     "joi": "^17.9.2",
@@ -35,6 +35,7 @@
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.1",
     "socket.io": "^4.7.1",
+    "socket.io-adapter": "^2.5.2",
     "typeorm": "^0.3.17"
   },
   "devDependencies": {
