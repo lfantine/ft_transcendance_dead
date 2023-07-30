@@ -5,4 +5,7 @@ export const routes = {
     HOME_LOGIN: '/login',
     HOME_REGISTER: '/register',
     CONNECT: '/connect',
+    MENU: '/MENU',
+    SOCIAL: '/SOCIAL',
+    PROFIL: '/PROFIL',
 }

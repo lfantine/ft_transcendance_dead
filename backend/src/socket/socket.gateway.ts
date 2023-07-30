@@ -1,4 +1,4 @@
-import { WebSocketGateway, WebSocketServer, OnGatewayConnection, OnGatewayDisconnect, SubscribeMessage, MessageBody } from '@nestjs/websockets';
+import { WebSocketGateway, WebSocketServer, OnGatewayConnection, OnGatewayDisconnect, SubscribeMessage, MessageBody, ConnectedSocket } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
 
 
@@ -19,7 +19,12 @@ export class SocketGateway {
 
   //recevoir un event ()
   @SubscribeMessage('message')
-  handleEvent(@MessageBody() data: string) {
-    console.log(`Client déconnecté: ${data}`);
+  handleEvent(@MessageBody() data: string, @ConnectedSocket() client : Socket ) {
+    this.server.emit('message', client.id, data);
+  }
+
+  @SubscribeMessage('other')
+  handleOther(@MessageBody() data: string, @ConnectedSocket() client : Socket ) {
+    this.server.emit('other', client.id, data);
   }
 }

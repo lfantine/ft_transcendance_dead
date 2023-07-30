@@ -43,7 +43,7 @@ export default function connect() {
       try {
         const rep = await axiosI.post('https://localhost/api/auth/login', {data: form});
         if (!rep.data.error)
-          push('/TEST');
+          push('/MENU');
         else
           console.log(rep.data);
       } catch (e) {

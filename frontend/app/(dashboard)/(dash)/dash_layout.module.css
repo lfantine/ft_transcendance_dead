@@ -1,0 +1,213 @@
+.Main {
+	height: 100%;
+	width: 100%;
+
+	background-image: url("/back3.jpg");
+	/* background-color: bisque; */
+	background-repeat: no-repeat;
+	background-position: center -0%;
+	background-size: cover;
+}
+
+.banner {
+	width: 100%;
+	height: 100px;
+
+	background-color: rgba(8, 0, 53, 0.479);
+	border-bottom: 3px solid white;
+
+	margin-top: 0px;
+
+	display: flex;
+	flex-direction: row;
+	justify-content: end;
+
+	z-index: 2;
+	/* mix-blend-mode: difference; */
+}
+
+.selectable {
+	width: fit-content;
+	height: fit-content;
+	font-size: 40px;
+	text-align: center;
+	margin: auto 0;
+
+	transition: 0.1s;
+
+	/* background-color: aqua; */
+}
+
+.selectablebutton {
+	height: fit-content;
+	width: fit-content;
+	font-size: 40px;
+	text-align: center;
+	background-color: rgba(255, 255, 255, 0);
+	border: 0;
+	color: white;
+}
+
+.selectable:hover {
+	transform: scale(1.1);
+}
+
+.cadreProfilBut {
+	height: fit-content;
+	width: fit-content;
+	font-size: 40px;
+	text-align: center;
+	background-color: rgba(255, 255, 255, 0);
+	border: 0;
+	color: white;
+}
+
+.allCat {
+	display: flex;
+	flex-direction: row;
+	margin: auto;
+	position: relative;
+	left: 2%;
+	gap: 80px;
+
+}
+
+.ppCat {
+	width: fit-content;
+	height: fit-content;
+	font-size: 40px;
+	text-align: center;
+	margin: auto 0;
+	margin-right: 15px;
+	
+	justify-content: right;
+	transition: 0.1s;
+}
+
+.ppCatP {
+	display: flex;
+	flex-direction: row;
+	gap: 10px;
+}
+
+.userPP {
+	width: 70px;
+	height: 70px;
+	border-radius: 50%;
+	background-image: url('/noUser.jpg');
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+.userN {
+	margin: auto;
+}
+
+@media screen and (max-width: 900px) {
+	.allCat {
+		gap: 20px;
+	}
+
+	.userPP{
+		width: 30px;
+		background-image: none;
+	}
+}
+
+@media screen and (max-width: 650px) {
+	.allCat {
+		display: none;
+	}
+
+	.ppCat {
+		margin: auto;
+	}
+
+	.banner {
+		justify-content: center;
+	}
+
+	.userPP{
+		width: 80px;
+		height: 80px;
+		display: block;
+		margin: auto;
+		background-image: url('/noUser.jpg');
+	}
+}
+
+.ppCatP:hover {
+	transform: scale(1.1);
+}
+
+.profilSelectOut {
+	height: fit-content;
+	width: fit-content;
+
+	position: absolute;
+	top: 93px;
+	z-index: 3;
+
+	overflow: hidden;
+}
+
+.profilSelect {
+	width: 180px;
+	height: 100px;
+
+	background-color: rgb(8, 0, 53);
+	border-bottom: 3px solid white;
+	border-right: 2px solid white;
+	border-left: 2px solid white;
+	border-top: 2px solid white;
+	border-radius: 10px;
+
+	display: flex;
+	flex-direction: column;
+	justify-content: baseline;
+
+	transform: translateY(-250px);
+}
+
+.down {
+	animation: 0.25s down linear forwards;
+}
+
+.up {
+	animation: 0.25s up linear forwards;
+}
+
+.selectablebuttonMin {
+	height: fit-content;
+	width: fit-content;
+	font-size: 35px;
+	background-color: rgba(255, 255, 255, 0);
+	border: 0;
+	color: white;
+	margin: 0 auto;
+	margin-top: 5px;
+
+	transition: 0.2s;
+}
+
+.selectablebuttonMin:hover {
+	transform: scale(1.1);
+}
+
+@keyframes down {
+	0% {
+		transform: translateY(-50px);
+	}
+	100% {
+		transform: translateY(0px);
+	}
+}
+
+@keyframes up {
+	0% {
+		transform: translateY(0px);
+	}
+	100% {
+		transform: translateY(-250px);
+	}
+}

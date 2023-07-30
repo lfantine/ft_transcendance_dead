@@ -1,0 +1,54 @@
+.cadre {
+	width: 90%;
+	min-height: 80px;
+	height: fit-content;
+
+	background-color: rgba(127, 255, 212, 0.308);
+	margin: auto;
+	margin-top: 25px;
+	padding-bottom: 10px;
+}
+
+.title {
+	font-size: 30px;
+	text-align: center;
+	color: black;
+	margin: auto;
+}
+
+.all {
+	min-height: 30px;
+	width: 95%;
+
+	background-color: rgba(240, 248, 255, 0.363);
+	margin: auto;
+
+	font-size: 25px;
+	color: black;
+	font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.mess {
+	font-size: 25px;
+	color: black;
+	font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+	margin-left: 10px;
+}
+
+.Send {
+	width: 95%;
+	height: fit-content;
+	margin: auto;
+}
+
+.sendTxt {
+	width: 69%;
+	font-size: 25px;
+	height: fit-content;
+}
+
+.sendBut {
+	width: 15%;
+	height: fit-content;
+	font-size: 25px;
+}
