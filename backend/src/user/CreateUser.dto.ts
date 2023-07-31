@@ -5,6 +5,10 @@ class CreateUserDto{
 	pic: Buffer;
 	MMR: number;
 	desc: string;
+
+	// For the socket
+	socketId: string;
+
 	// For 42 User
 	token: string;
 	refresh_token: string;

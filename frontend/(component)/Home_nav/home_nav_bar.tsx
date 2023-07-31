@@ -47,7 +47,7 @@ const Hnav: React.FC<INavbar> = (Content) => {
 				});
 				const rep = await axiosI.get('https://localhost/api/auth/isLogin',  { withCredentials: true});
 				if (rep.data)
-					push("/TEST")
+					push("/MENU")
 			} catch (e) {
 				console.log("test error");
 			}
@@ -65,7 +65,6 @@ const Hnav: React.FC<INavbar> = (Content) => {
 				<div className={style.game_dev}>
 					<Link className={style.Link} href={routes.GAME}> <h3 className={style.select}>Game dev</h3> </Link>
 				</div>
-				<div className={style.game_dev} onClick={Test}><h3 className={style.select}>narty dev</h3></div>
 			</div>
 		</main>
 	);

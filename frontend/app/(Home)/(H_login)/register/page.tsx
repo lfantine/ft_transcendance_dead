@@ -11,6 +11,7 @@ import { useForm } from 'react-hook-form';
 import { send } from 'process';
 import axios, { AxiosInstance } from 'axios';
 import { ApiResponse } from '@/utils/api_response';
+import { useRouter } from 'next/navigation';
 
 type rFormInterface = {
 	username: string;
@@ -44,7 +45,14 @@ const Send = async (form: rFormInterface) => {
     });
     try {
       const rep = await axiosI.post('https://localhost/api/auth/register', {data: form});
-      console.log(rep.data);
+      if (rep.data.error){
+        console.log('error');
+      }
+      else {
+        console.log(rep.data.data);
+        const { push } = useRouter();
+        push('/login');
+      }
     } catch (e) {
       console.log('error');
     }

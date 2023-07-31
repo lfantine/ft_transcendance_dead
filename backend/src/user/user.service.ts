@@ -24,6 +24,14 @@ export class UserService {
 		throw new HttpException('User with this id does not exist !', HttpStatus.NOT_FOUND);
 	}
 
+	async findBySocketId(socketId: string): Promise<User>{
+		const user = await this.userRepository.findOneBy({socketId});
+		if (user) {
+			return user;
+		}
+		throw new HttpException('User with this id does not exist !', HttpStatus.NOT_FOUND);
+	}
+
 	async findByUsername(username: string): Promise<User>{
 		const user = await this.userRepository.findOneBy({username});
 		if (user) {

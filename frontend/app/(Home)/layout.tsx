@@ -21,7 +21,7 @@ export default function HomeLayout({
         });
         const rep = await axiosI.get('https://localhost/api/auth/isLogin',  { withCredentials: true});
         if (rep.data)
-          push("/TEST")
+          push("/MENU")
       } catch (e) {
         console.log("error with check log");
       }

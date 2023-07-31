@@ -14,9 +14,12 @@ export default function DashLayout({
 }) {
 
   const { push } = useRouter();
-  let socket: any;
+  let sockett: any;
+  const [socket, setSocket] = useState(sockett);
   const [username, setUsername] = useState('Nartyyy');
   const [down, setDown] = useState(false);
+  const [disconnecting, setDisconnecting] = useState(false);
+
 
   useEffect(() => {
     const checkLog = async () => {
@@ -40,9 +43,13 @@ export default function DashLayout({
 
   async function socketInitializer() {
     const messages = document.getElementById('messages');
-    socket = io('https://localhost', {
+    const temp = io('https://localhost', {
 			path: '/api/socket', // Chemin personnalisé ici
 		});
+    setSocket(temp);
+
+    if (socket === undefined)
+      return ;
 
     socket.on('connect', () => {
       console.log('Connecté au serveur Socket.IO');
@@ -50,6 +57,9 @@ export default function DashLayout({
 
     socket.on('disconnect', () => {
       console.log('Déconnecté du serveur Socket.IO');
+      if (disconnecting) {
+        socket.close();
+      }
     });
 
     socket.on('message', function(id: any, data: any) {
@@ -63,10 +73,17 @@ export default function DashLayout({
         messages.innerHTML += `<div className={style.mess}> other : ${data} </div>`;
       }
     });
+
+    return () => {
+      setDisconnecting(true);
+      socket.disconnect();
+    };
   }
 
   const logout = async () => {
 		try {
+      setDisconnecting(true);
+      socket.disconnect();
       todown();
 			const axiosI: AxiosInstance = axios.create({
 				baseURL: '',

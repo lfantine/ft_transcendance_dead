@@ -26,6 +26,11 @@ class User {
 	@Column()
 	MMR: number;
 
+	// For socket
+
+	@Column()
+	socketId: string;
+
 	// For 42 User
 
 	@Column()

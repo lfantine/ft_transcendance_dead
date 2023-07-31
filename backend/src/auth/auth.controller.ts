@@ -36,7 +36,7 @@ export class AuthController {
 			request.res.setHeader('Set-Cookie', cookie);
 			return response.send(request.body);
 		} catch (e) {
-			return response.send(undefined);
+			return response.send({data: 'error', error: true, errorCode: '1'});
 		}
 	}
 

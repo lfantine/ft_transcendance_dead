@@ -22,27 +22,30 @@ export default function ConnectPage() {
 						baseURL: '',
 					});
 					console.log('attente de reponse');
-					const rep = await axiosI.post<AuthResponse | number>('https://localhost:3000/auth/login', {code: code}, { withCredentials: true,});
+					const rep = await axiosI.post('https://localhost/api/auth/login42', {code: code}, { withCredentials: true,});
 					console.log('reponse recu !');
 					console.log(rep.data);
-					if (rep.data !== -1 && rep.data !== undefined)
+					if (!rep.data.error)
 					{
 						console.log('You are now logged in !');
 						localStorage.setItem('log', 'yes');
-						push('/dashboard');
+						push('/MENU');
 					}
 					else{
 						console.log('error');
+						localStorage.setItem('log', 'no');
 						push('');
 					}
 					return ;
 				} catch (e) {
 					console.log('error');
+					localStorage.setItem('log', 'no');
 					push('');
 				}
 			}
 			else
 			{
+				localStorage.setItem('log', 'no');
 				push('');
 			}
 		};

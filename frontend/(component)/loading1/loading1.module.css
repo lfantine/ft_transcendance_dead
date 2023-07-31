@@ -1,0 +1,57 @@
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600&family=Patua+One&display=swap');
+.loader {
+	height: fit-content;
+	width: fit-content;
+}
+
+.letter {
+	font-size: 80px;
+	font-family: 'Patua One';
+	color: rgb(90, 90, 90);
+	text-shadow: rgb(153, 252, 255) 0px 0px 5px;
+	animation: loading 2.5s infinite;
+}
+
+@keyframes loading {
+	0% {
+		color: rgb(255, 255, 255);
+		text-shadow: rgb(255, 255, 255) 0px 0px 5px;
+	}
+	90% {
+		text-shadow: rgba(255, 255, 255, 0) 0px 0px 5px;
+	}
+	100% {
+		color: rgba(255, 255, 255, 0.253);
+	}
+}
+
+.letter:nth-child(1) {
+	animation-delay: 0.1s;
+}
+.letter:nth-child(2) {
+	animation-delay: 0.2s;
+}
+.letter:nth-child(3) {
+	animation-delay: 0.3s;
+}
+.letter:nth-child(4) {
+	animation-delay: 0.4s;
+}
+.letter:nth-child(5) {
+	animation-delay: 0.5s;
+}
+.letter:nth-child(6) {
+	animation-delay: 0.6s;
+}
+.letter:nth-child(7) {
+	animation-delay: 0.7s;
+}
+.letter:nth-child(8) {
+	animation-delay: 0.8s;
+}
+.letter:nth-child(9) {
+	animation-delay: 0.9s;
+}
+.letter:nth-child(10) {
+	animation-delay: 1s;
+}
