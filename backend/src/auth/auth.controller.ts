@@ -15,7 +15,7 @@ export class AuthController {
 	constructor(
 		private readonly authService: AuthService,
 		private configService: ConfigService,
-		) {}
+	) {}
 
 	@Post('login42')
 	async login42(@Body('code') code: string, @Res() response: Response, @Req() request: Request){

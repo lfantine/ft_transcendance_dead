@@ -48,7 +48,7 @@ export class AuthService {
 				console.log('user not found go creating one');
 			}
 			const ImgData: Buffer = Buffer.alloc(0);
-			const newUser = await this.userService.createUser({token, refresh_token, mail: email, username: login, level: 0, MMR: 0, pic: ImgData, desc: 'new user', is42: true, password: "none", socketId: 'none'});
+			const newUser = await this.userService.createUser({token, refresh_token, mail: email, Uid: login, username: login, level: 0, MMR: 0, pic: ImgData, desc: 'new user', is42: true, password: "none", socketId: 'none', status: -1});
 			return newUser;
 		} catch (error) {
 			console.log('an error occure during 42 User creation');
@@ -69,7 +69,7 @@ export class AuthService {
 			const hashPassword = await this.createHash(data.password);
 
 			const ImgData: Buffer = Buffer.alloc(0);
-			const newUser = await this.userService.createUser({token : 'none', refresh_token: 'none', mail: data.email, username: data.username, level: 0, MMR: 0, pic: ImgData, desc: 'new user', is42: false, password: hashPassword, socketId: 'none'});
+			const newUser = await this.userService.createUser({token : 'none', refresh_token: 'none', mail: data.email, Uid:data.username, username: data.username, level: 0, MMR: 0, pic: ImgData, desc: 'new user', is42: false, password: hashPassword, socketId: 'none', status: -1});
 			return newUser;
 		} catch (error) {
 			if (error?.code === PostgresErrorCodes.UniqueViolation){
@@ -106,7 +106,7 @@ export class AuthService {
 		if (data === undefined)
 			throw new HttpException('Something went wrong !', HttpStatus.BAD_REQUEST);
 
-		const user = await this.userService.findByUsername(data.username);
+		const user = await this.userService.findByUid(data.username);
 		return user;
 	}
 

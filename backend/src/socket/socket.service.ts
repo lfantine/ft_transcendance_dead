@@ -17,6 +17,7 @@ export class SocketService {
 			const userCookie = await this.jwtService.verify(cookie, this.configService.get('JWT_SECRET'));
 			const user = await this.userService.findById(userCookie.id);
 			user.socketId = socketId;
+			user.status = 1;
 			await this.userService.updateUser(user);
 			return {error: false, username: user.username};
 		} catch (error) {
@@ -28,6 +29,7 @@ export class SocketService {
 		try {
 			const user = await this.userService.findBySocketId(socketID);
 			user.socketId = 'none';
+			user.status = -1;
 			await this.userService.updateUser(user);
 			return {error: false, username: user.username};
 		} catch (e) {

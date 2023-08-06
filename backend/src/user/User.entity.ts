@@ -12,6 +12,9 @@ class User {
 	mail: string;
 
 	@Column("text", {unique: true})
+	Uid: string;
+
+	@Column("text", )
 	username: string;
 
 	@Column({type: 'bytea'})
@@ -30,6 +33,9 @@ class User {
 
 	@Column()
 	socketId: string;
+
+	@Column()
+	status: number;
 
 	// For 42 User
 

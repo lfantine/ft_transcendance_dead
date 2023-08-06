@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import io from "socket.io-client";
 import { routes } from '@/utils/route';
+import { sleep } from '@/(component)/other/utils';
 
 export default function DashLayout({
   children,
@@ -14,8 +15,8 @@ export default function DashLayout({
 }) {
 
   const { push } = useRouter();
-  let sockett: any;
-  const [socket, setSocket] = useState(sockett);
+  let tsocket: any;
+  const [socket, setSocket] = useState(tsocket);
   const [username, setUsername] = useState('Nartyyy');
   const [down, setDown] = useState(false);
   const [disconnecting, setDisconnecting] = useState(false);
@@ -31,6 +32,7 @@ export default function DashLayout({
         if (!rep.data)
           push("/")
         else {
+          console.log('socket : ' + socket);
           socketInitializer();
         }
       } catch (e) {
@@ -42,36 +44,33 @@ export default function DashLayout({
   }, [])
 
   async function socketInitializer() {
-    const messages = document.getElementById('messages');
-    const temp = io('https://localhost', {
+    const Socket = io('https://localhost', {
 			path: '/api/socket', // Chemin personnalisé ici
 		});
-    setSocket(temp);
+    setSocket(Socket);
+    console.log('socket : ' + Socket);
 
-    if (socket === undefined)
+    if (Socket === undefined)
       return ;
 
-    socket.on('connect', () => {
+    Socket.on('connect', async () => {
       console.log('Connecté au serveur Socket.IO');
     });
 
-    socket.on('disconnect', () => {
+    Socket.on('disconnect', () => {
       console.log('Déconnecté du serveur Socket.IO');
       if (disconnecting) {
         socket.close();
       }
     });
 
-    socket.on('message', function(id: any, data: any) {
-      if (messages) {
-        messages.innerHTML += `<div className={style.mess}> mess : ${data} </div>`;
-      }
+    Socket.on('Uconnected', function(username) {
+      console.log('Uconnected recu');
+      addNotif("New User", `${username} is connected`, 1);
     });
 
-    socket.on('other', function(id: any, data: any) {
-      if (messages) {
-        messages.innerHTML += `<div className={style.mess}> other : ${data} </div>`;
-      }
+    Socket.on('test', function(id: any, data: any) {
+      console.log('test recu');
     });
 
     return () => {
@@ -127,6 +126,49 @@ export default function DashLayout({
     }
   }
 
+  const addNotif = async (title : string, content: string, type: number) => {
+    console.log('launch addnotif');
+    const banner = document.getElementById('notifbanner');
+    const notif = document.createElement('div');
+    if (type === 0) {notif.classList.add(style.notifError);}
+    else if (type === 1) {notif.classList.add(style.notifConnected);}
+    else if (type === 2) {notif.classList.add(style.notifSystem);}
+    else if (type === 3) {notif.classList.add(style.notifNone);}
+
+    const notifTitle = document.createElement('h4');
+    notifTitle.classList.add(style.notifTitle);
+    notifTitle.innerText = title + ' :';
+    notif.appendChild(notifTitle);
+
+    const notifContent = document.createElement('p');
+    notifContent.classList.add(style.notifContent);
+    notifContent.innerText = content;
+    notif.appendChild(notifContent);
+
+    notif.classList.add(style.notifanimate);
+    if (banner) {
+      banner.appendChild(notif);
+      await sleep(5000);
+      notif.remove();
+    }
+  }
+
+  const createNotif = () => {
+    addNotif("Error", "notif test", 0);
+  }
+  const createNotif2 = () => {
+    addNotif("New User", "lfantine is connected", 1);
+  }
+  const createNotif3 = () => {
+    addNotif("Test system", "server will restart", 2);
+  }
+  const createNotif4 = () => {
+    addNotif("Test other", "notification empty", 3);
+  }
+  const sendPing = () => {
+    socket.emit('test', "test");
+  }
+
   return (
     <main className={style.Main}>
       <div style={{height: '0px', width: '100%'}}></div>
@@ -143,12 +185,27 @@ export default function DashLayout({
           </div>
           <div className={style.profilSelectOut}>
             <div className={style.profilSelect} id='panel'>
-              <button className={style.selectablebuttonMin} onClick={profil_page}>Profil</button>
+              <button className={style.selectablebuttonMin} onClick={profil_page}>Profile</button>
               <button className={style.selectablebuttonMin} onClick={logout}>Logout</button>
             </div>
           </div>
         </div>
       </div>
+      <div className={style.notifBanner} id='notifbanner'>
+        {/* <div className={style.notifError}>
+          <h4 className={style.notifTitle}>Error :</h4>
+          <p className={style.notifContent}>register failed</p>
+        </div>
+        <div className={style.notifConnected}>
+          <h4 className={style.notifTitle}>User Connected :</h4>
+          <p className={style.notifContent}>lfantine is connected</p>
+        </div> */}
+      </div>
+      <button onClick={createNotif}>new notif</button>
+      <button onClick={createNotif2}>new notif</button>
+      <button onClick={createNotif3}>new notif</button>
+      <button onClick={createNotif4}>new notif</button>
+      <button onClick={sendPing}>Send Ping</button>
       {children}
     </main>
   )

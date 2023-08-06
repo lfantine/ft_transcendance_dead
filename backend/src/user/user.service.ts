@@ -21,7 +21,7 @@ export class UserService {
 		if (user) {
 			return user;
 		}
-		throw new HttpException('User with this id does not exist !', HttpStatus.NOT_FOUND);
+		throw new HttpException('User with this email does not exist !', HttpStatus.NOT_FOUND);
 	}
 
 	async findBySocketId(socketId: string): Promise<User>{
@@ -29,7 +29,7 @@ export class UserService {
 		if (user) {
 			return user;
 		}
-		throw new HttpException('User with this id does not exist !', HttpStatus.NOT_FOUND);
+		throw new HttpException('User with this SocketId does not exist !', HttpStatus.NOT_FOUND);
 	}
 
 	async findByUsername(username: string): Promise<User>{
@@ -37,7 +37,15 @@ export class UserService {
 		if (user) {
 			return user;
 		}
-		throw new HttpException('User with this id does not exist !', HttpStatus.NOT_FOUND);
+		throw new HttpException('User with this username does not exist !', HttpStatus.NOT_FOUND);
+	}
+
+	async findByUid(Uid: string): Promise<User>{
+		const user = await this.userRepository.findOneBy({Uid});
+		if (user) {
+			return user;
+		}
+		throw new HttpException('User with this Uid does not exist !', HttpStatus.NOT_FOUND);
 	}
 
 	async createUser(userData: CreateUserDto) {

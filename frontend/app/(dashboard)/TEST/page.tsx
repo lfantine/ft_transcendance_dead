@@ -34,7 +34,7 @@ export default function ConnectPage() {
       <div style={{height: '10px', width: '100%'}}></div> {/* cette ligne est fait pour cancel le probleme de top margin*/}
 	<h1 className={style.title}>COUCOU</h1>
 	<button onClick={logout} className={style.button}> DECONNECTION </button>
-	{/* <SocketComponent /> */}
+	<SocketComponent />
     </main>
   );
 }
