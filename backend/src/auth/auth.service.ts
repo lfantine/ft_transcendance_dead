@@ -3,9 +3,9 @@ import { UserService } from 'src/user/user.service';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import axios, { AxiosInstance } from 'axios';
-// import * as bcrypt from 'bcrypt';
 import PostgresErrorCodes from 'src/database/postgresErrorCodes';
 import { Request } from 'express';
+// import crypto from 'crypto';
 
 interface TokenPayload{
 	id: string;
@@ -66,15 +66,10 @@ export class AuthService {
 
 		// possibiliter de valider l'email avant creation
 
-		console.log('------------');
-		console.log(data);
-		console.log('------------');
-
 		try {
-			// const hashPassword = await bcrypt.hash(data.password, 10);
-			const hashPassword = data.password;
-			// ---------
-			console.log('HashedPassword = ' + hashPassword);
+ 			
+			const hashPassword = await this.createHash(data.password);
+
 			const ImgData: Buffer = Buffer.alloc(0);
 			const newUser = await this.userService.createUser({token : 'none', refresh_token: 'none', mail: data.email, username: data.username, level: 0, MMR: 0, pic: ImgData, desc: 'new user', is42: false, password: hashPassword});
 			return newUser;
@@ -88,25 +83,23 @@ export class AuthService {
 		throw new HttpException('Something went wrong with user creation !', HttpStatus.BAD_REQUEST);
 	}
 
+	async createHash(password) {
+
+		let crypto = require('node:crypto');
+		// const salt = crypto.randomBytes(16).toString('hex');
+		const salt = '12';
+		return crypto.createHash('sha256').update(password + salt).digest('hex');
+		// return crypto.createHmac('sha256', salt).update(password).digest('hex');
+
+	}
+
 	async login (data: any, user : any) {
-		console.log("---------------");
-		console.log("password = ");
-		console.log(data.password);
-		console.log("hash = ");
-		console.log(user.hashPassword);
-		console.log("---------------");
 		if (data === undefined)
 			throw new HttpException('Something went wrong !', HttpStatus.BAD_REQUEST);
 		if (user === undefined)
 			throw new HttpException('Something went wrong !', HttpStatus.BAD_REQUEST);
-
-		console.log("securiter pass");
-		// const passMatch = await bcrypt.compare(data.password, user.password);
-		const passMatch = true;
-		// -------
-		console.log("---------------");
-		return passMatch;
-		
+		const hashPassword = await this.createHash(data.password);
+		return (hashPassword === user.password)
 	}
 
 	async validateUser (data: any) {

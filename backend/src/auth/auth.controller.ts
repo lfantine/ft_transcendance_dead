@@ -42,15 +42,12 @@ export class AuthController {
 
 	@Post('register')
 	async register(@Res() response: Response, @Req() request: Request, @Body('data') data: any) {
-		console.log(data);
-
 		try {
 			const res = await this.authService.register(data);
 			return response.send({data: 'you are now register', error: false, errorCode: 'none'});
 		} catch (e) {
 			return response.send({data: e.data, error: true, errorCode: '-1'});
 		}
-
 	}
 
 	@Post('login')

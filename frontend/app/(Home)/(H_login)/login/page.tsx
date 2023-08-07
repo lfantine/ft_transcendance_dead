@@ -46,7 +46,7 @@ export default function connect() {
         if (!rep.data.error)
           push('/TEST');
         else
-        console.log('error');
+          console.log(rep.data);
       } catch (e) {
         console.log('error');
       }
