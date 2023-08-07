@@ -44,7 +44,6 @@ export class DashboardController {
 		const userID = request.UserId;
 		console.log('post desc is reached');
 		try {
-			console.log('desc = ' + desc);
 			if (userID === undefined || desc === undefined)
 				throw new HttpException('Something went wrong !', HttpStatus.BAD_REQUEST);
 			const res = await this.dashService.postDesc(userID, desc);
@@ -68,9 +67,7 @@ export class DashboardController {
 	@UseGuards(isAuthGuard)
 	async postUsername(@Res() response: Response, @Req() request: RequestUser, @Body('username') username: string) {
 		const userID = request.UserId;
-		console.log('post desc is reached');
 		try {
-			console.log('desc = ' + username);
 			if (userID === undefined || username === undefined)
 				throw new HttpException('Something went wrong !', HttpStatus.BAD_REQUEST);
 			const res = await this.dashService.postUsername(userID, username);
@@ -81,6 +78,33 @@ export class DashboardController {
 			return res;
 		} catch (e) {
 			console.log('post username crashed');
+			response.send({
+				data: 'none',
+				error: true,
+				ErrorInfo: 'error while searching user'
+			});
+			return 'error';
+		}
+	}
+
+	@Post('pic')
+	@UseGuards(isAuthGuard)
+	async postPic(@Req() request: RequestUser, @Res() response: Response) {
+		const userID = request.UserId;
+		const { image } = request.body;
+		console.log('post pp reached');
+		try {
+			if (userID === undefined || image === undefined || image === null)
+				throw new HttpException('Something went wrong !', HttpStatus.BAD_REQUEST);
+			const res = await this.dashService.postPic(Buffer.from(image, 'base64'), userID);
+			console.log('posting pp ok');
+			response.send({
+				data: res,
+				error: false
+			});
+			return res;
+		} catch (e) {
+			console.log('post pp crashed');
 			response.send({
 				data: 'none',
 				error: true,

@@ -40,4 +40,11 @@ export class DashboardService {
 		await this.userService.updateUser(user);
 		return username;
 	}
+
+	async postPic(binaryImg: Buffer, id: string) {
+		let user = await this.userService.findById(id);
+		user.pic = binaryImg;
+		await this.userService.updateUser(user);
+		return {mess: 'picture upload'};
+	}
 }

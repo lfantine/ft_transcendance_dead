@@ -59,6 +59,9 @@
 	.changePp {
 		display: block;
 	}
+	.changePpi {
+		display: block;
+	}
 }
 
 .pp {
@@ -67,18 +70,37 @@
 	margin: 0;
 }
 
+.changePpi {
+	color: white;
+	background-color: rgba(0, 0, 0, 0.295);
+	margin: auto;
+	position: relative;
+	bottom: 85px;
+	right: 150px;
+	font-size: 30px;
+	border: 0;
+
+	padding: 5px 15px;
+
+	border-radius: 30px;
+	transform: scale(0.5);
+
+	display: none;
+}
+
 .changePp {
 	color: white;
 	background-color: rgba(0, 0, 0, 0.295);
 	margin: auto;
 	position: relative;
-	bottom: 65px;
+	bottom: 95px;
 	font-size: 30px;
 	border: 0;
 
 	padding: 0 15px;
 
 	border-radius: 30px;
+	transform: scale(0.8);
 
 	display: none;
 }
