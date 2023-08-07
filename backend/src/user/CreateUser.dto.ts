@@ -1,10 +1,16 @@
 class CreateUserDto{
 	mail: string;
-	username: string;
+	Uid: string; // is for kmow friend and contact 
+	username: string; // is the displayable name
 	level: number;
 	pic: Buffer;
 	MMR: number;
 	desc: string;
+
+	// For the socket
+	socketId: string;
+	status: number;
+
 	// For 42 User
 	token: string;
 	refresh_token: string;

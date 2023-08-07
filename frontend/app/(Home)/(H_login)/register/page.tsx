@@ -11,6 +11,7 @@ import { useForm } from 'react-hook-form';
 import { send } from 'process';
 import axios, { AxiosInstance } from 'axios';
 import { ApiResponse } from '@/utils/api_response';
+import { useRouter } from 'next/navigation';
 
 type rFormInterface = {
 	username: string;
@@ -32,30 +33,36 @@ const valideForm = Joi.object({
 	confirmPassword: Joi.ref('password'),
 });
 
-const Send = async (form: rFormInterface) => {
-  console.log(form);
-  const validform = valideForm.validate(form);
-  if (validform.error) {
-    console.log(validform.error.details);
-  }
-  else
-  {
-    const axiosI: AxiosInstance = axios.create({
-      baseURL: '',
-    });
-    try {
-      const rep = await axiosI.post('https://localhost/api/auth/register', {data: form});
-      console.log(rep.data);
-    } catch (e) {
-      console.log('error');
-    }
-  }
-}
-
 export default function connect() {
 
   const [conf, setConf] = useState('confirm password');
   const { register, handleSubmit } = useForm<rFormInterface>();
+  const { push } = useRouter();
+
+  const Send = async (form: rFormInterface) => {
+    const validform = valideForm.validate(form);
+    if (validform.error) {
+      console.log(validform.error.details);
+    }
+    else
+    {
+      const axiosI: AxiosInstance = axios.create({
+        baseURL: '',
+      });
+      try {
+        const rep = await axiosI.post('https://localhost/api/auth/register', {data: form});
+        if (rep.data.error === true){
+          console.log('error');
+        }
+        else {
+          console.log(rep.data.data);
+          push('/login');
+        }
+      } catch (e) {
+        console.log('error');
+      }
+    }
+  }
 
   return (
     <main>

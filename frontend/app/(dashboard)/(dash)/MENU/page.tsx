@@ -12,26 +12,11 @@ export default function ConnectPage() {
 	const code = query.code;
 	const { push } = useRouter();
 
-
-	const logout = async () => {
-		try {
-			const axiosI: AxiosInstance = axios.create({
-				baseURL: '',
-			});
-			const rep = await axiosI.post('https://localhost/api/auth/logout',  { withCredentials: true});
-			push("/");
-		} catch (e) {
-			console.log("logout error");
-		}
-	}
-
   // Reste de votre code...
 
   return (
     <main>
       <div style={{height: '10px', width: '100%'}}></div> {/* cette ligne est fait pour cancel le probleme de top margin*/}
-	<h1 className={style.title}>COUCOU</h1>
-	<button onClick={logout} className={style.button}> DECONNECTION </button>
     </main>
   );
 }

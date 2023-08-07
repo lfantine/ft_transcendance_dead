@@ -31,7 +31,6 @@ export default function connect() {
   const { push } = useRouter();
 
   const Send = async (form: lFormInterface) => {
-    console.log(form);
     const validform = valideForm.validate(form);
     if (validform.error) {
       console.log(validform.error.details);
@@ -44,7 +43,7 @@ export default function connect() {
       try {
         const rep = await axiosI.post('https://localhost/api/auth/login', {data: form});
         if (!rep.data.error)
-          push('/TEST');
+          push('/MENU');
         else
           console.log(rep.data);
       } catch (e) {

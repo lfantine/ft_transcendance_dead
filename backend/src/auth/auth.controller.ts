@@ -15,7 +15,7 @@ export class AuthController {
 	constructor(
 		private readonly authService: AuthService,
 		private configService: ConfigService,
-		) {}
+	) {}
 
 	@Post('login42')
 	async login42(@Body('code') code: string, @Res() response: Response, @Req() request: Request){
@@ -36,7 +36,7 @@ export class AuthController {
 			request.res.setHeader('Set-Cookie', cookie);
 			return response.send(request.body);
 		} catch (e) {
-			return response.send(undefined);
+			return response.send({data: 'error', error: true, errorCode: '1'});
 		}
 	}
 
