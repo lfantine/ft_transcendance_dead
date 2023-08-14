@@ -289,3 +289,33 @@
 .blue {
 	background-color: blue;
 }
+
+.levelBar {
+	margin: auto;
+	margin-top: 45px;
+	background-color: rgba(0, 9, 128, 0.377);
+	width: 90%;
+	height: 40px;
+	border: 1px solid white;
+	border-radius: 20px;
+}
+
+.lvlbartxt {
+	margin: auto;
+	height: fit-content;
+	width: fit-content;
+	padding: 1px 10px;
+	position: relative;
+	bottom: 70px;
+	background-color: rgb(0, 6, 94);
+	border-radius: 10px;
+	border: 1px solid white;
+	color: rgb(255, 255, 255);
+
+	font-weight: bold;
+	font-size: 30px;
+}
+
+@media screen and (max-width: 850px) {
+	
+}

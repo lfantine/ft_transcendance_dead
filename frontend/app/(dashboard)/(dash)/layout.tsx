@@ -2,11 +2,18 @@
 
 import axios, { AxiosInstance } from 'axios';
 import style from './dash_layout.module.css'
-import { useEffect, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import io from "socket.io-client";
 import { routes } from '@/utils/route';
 import { sleep } from '@/(component)/other/utils';
+
+const waitingForData: any = null;
+const SocketContext = createContext(waitingForData);
+
+export function useSocketContext() {
+  return useContext(SocketContext);
+}
 
 export default function DashLayout({
   children,
@@ -17,9 +24,12 @@ export default function DashLayout({
   const { push } = useRouter();
   let tsocket: any;
   const [socket, setSocket] = useState(tsocket);
-  const [username, setUsername] = useState('Nartyyy');
+  const [Uid, setUid] = useState('player');
   const [down, setDown] = useState(false);
   const [disconnecting, setDisconnecting] = useState(false);
+  const [ppSrc, setPpSrc] = useState('/noUser.jpg')
+
+  const dda = 'some data is good';
 
 
   useEffect(() => {
@@ -32,7 +42,7 @@ export default function DashLayout({
         if (!rep.data)
           push("/")
         else {
-          console.log('socket : ' + socket);
+          MEP();
           socketInitializer();
         }
       } catch (e) {
@@ -43,12 +53,34 @@ export default function DashLayout({
     checkLog();
   }, [])
 
+  async function MEP() {
+    try {
+      const res = await axios.get("https://localhost/api/dashboard/minInfo", { withCredentials: true});
+      if (res.data.data.pic === undefined || res.data.data.pic === null || res.data.data.pic.data.length <= 0) {
+        setPpSrc("/noUser.jpg");
+      }
+      else {
+        const binImg = res.data.data.pic;
+        const binaryImg = new Uint8Array(binImg.data);
+				let base64Img = '';
+				binaryImg.forEach(byte => {
+					base64Img += String.fromCharCode(byte); // Convertir chaque octet en caractère
+				});
+				const imageUrl = `data:image/jpeg;base64,${btoa(base64Img)}`; // Convertir la représentation base64
+        setPpSrc(imageUrl);
+      }
+      setUid(res.data.data.Uid);
+    } catch (e) {
+      console.log('mep layout failed');
+    }
+  }
+
   async function socketInitializer() {
     const Socket = io('https://localhost', {
 			path: '/api/socket', // Chemin personnalisé ici
 		});
     setSocket(Socket);
-    console.log('socket : ' + Socket);
+    // console.log('socket : ' + Socket);
 
     if (Socket === undefined)
       return ;
@@ -71,6 +103,11 @@ export default function DashLayout({
 
     Socket.on('test', function(id: any, data: any) {
       console.log('test recu');
+    });
+
+    Socket.on('profilEdit', function(id: any, data: any) {
+      console.log('pp updated');
+      MEP();
     });
 
     return () => {
@@ -180,8 +217,8 @@ export default function DashLayout({
         </div>
         <div className={style.ppCat} id='caPo'>
           <div className={style.ppCatP} onClick={todown}>
-            <div className={style.userN}>{username}</div>
-            <div className={style.userPP}></div>
+            <div className={style.userN}>{Uid}</div>
+            <img className={style.userPP} src={ppSrc}></img>
           </div>
           <div className={style.profilSelectOut}>
             <div className={style.profilSelect} id='panel'>
@@ -192,21 +229,15 @@ export default function DashLayout({
         </div>
       </div>
       <div className={style.notifBanner} id='notifbanner'>
-        {/* <div className={style.notifError}>
-          <h4 className={style.notifTitle}>Error :</h4>
-          <p className={style.notifContent}>register failed</p>
-        </div>
-        <div className={style.notifConnected}>
-          <h4 className={style.notifTitle}>User Connected :</h4>
-          <p className={style.notifContent}>lfantine is connected</p>
-        </div> */}
       </div>
-      <button onClick={createNotif}>new notif</button>
+      {/* <button onClick={createNotif}>new notif</button>
       <button onClick={createNotif2}>new notif</button>
       <button onClick={createNotif3}>new notif</button>
       <button onClick={createNotif4}>new notif</button>
-      <button onClick={sendPing}>Send Ping</button>
-      {children}
+      <button onClick={sendPing}>Send Ping</button> */}
+      <SocketContext.Provider value={socket}>
+        {children}
+      </SocketContext.Provider>
     </main>
   )
 }

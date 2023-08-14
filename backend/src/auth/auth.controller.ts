@@ -20,9 +20,11 @@ export class AuthController {
 	@Post('login42')
 	async login42(@Body('code') code: string, @Res() response: Response, @Req() request: Request){
 		try {
+			console.log('test start');
 			const axiosI: AxiosInstance = axios.create({
 				baseURL: '',
 			});
+			console.log('test 1');
 			const reponse = await axiosI.post<oauthResponse>('https://api.intra.42.fr/oauth/token', {
 				grant_type: 'authorization_code',
 				client_id: this.configService.get('42_CLIENT_ID'),
@@ -30,10 +32,14 @@ export class AuthController {
 				code: code,
 				redirect_uri: 'https://localhost/connect',
 			});
+			console.log('test 2');
 			const data = await this.authService.login42(reponse.data.access_token, reponse.data.refresh_token);
+			console.log('test 3');
 			const cookie = await this.authService.getCookieJwtToken(data);
+			console.log('test 4');
 			request.body = data.username;
 			request.res.setHeader('Set-Cookie', cookie);
+			console.log('test 5');
 			return response.send(request.body);
 		} catch (e) {
 			return response.send({data: 'error', error: true, errorCode: '1'});
