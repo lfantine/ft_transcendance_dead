@@ -3,6 +3,7 @@ import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { UserService } from 'src/user/user.service';
 import { Response, Request } from 'express';
+import { SocketGateway } from 'src/socket/socket.gateway';
 
 @Injectable()
 export class DashboardService {
@@ -38,6 +39,19 @@ export class DashboardService {
 		const user = await this.userService.findById(id);
 		user.username = username;
 		await this.userService.updateUser(user);
-		return username;
+		return {
+			"username" : username,
+			"socketId" : user.socketId,
+		};
+	}
+
+	async postPic(binaryImg: Buffer, id: string) {
+		let user = await this.userService.findById(id);
+		user.pic = binaryImg;
+		await this.userService.updateUser(user);
+		return {
+			mess: 'picture upload',
+			"socketId" : user.socketId,
+		};
 	}
 }

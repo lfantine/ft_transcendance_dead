@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
+import { Server } from 'socket.io';
 import { UserService } from 'src/user/user.service';
 
 @Injectable()
 export class SocketService {
-
 	constructor(
 		private userService: UserService,
 		private configService: ConfigService,

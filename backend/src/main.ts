@@ -11,7 +11,7 @@ import { SocketAdaptater } from './socket/SocketAdaptater';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.use(cookieParser());
-  // app.use(express.json({ limit: '10mb' })); // limit size
+  app.use(express.json({ limit: '10mb' })); // limit size
   app.setGlobalPrefix('api');
 
   app.useWebSocketAdapter(new SocketAdaptater(app));

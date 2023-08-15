@@ -1,0 +1,3 @@
+Un module de news : 
+
+	-> le 13/08 : passage du socket du layout vers children avec les contextes react

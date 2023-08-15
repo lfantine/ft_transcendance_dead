@@ -17,6 +17,6 @@ import { JwtModule } from '@nestjs/jwt';
     }),
   })],
   controllers: [DashboardController],
-  providers: [DashboardService]
+  providers: [DashboardService, ConfigService]
 })
 export class DashboardModule {}

@@ -1,10 +1,9 @@
-import { ConfigService } from '@nestjs/config';
-import { JwtService } from '@nestjs/jwt';
+import { Injectable } from '@nestjs/common';
 import { WebSocketGateway, WebSocketServer, OnGatewayConnection, OnGatewayDisconnect, SubscribeMessage, MessageBody, ConnectedSocket } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
 import { SocketService } from './socket.service';
 
-
+@Injectable()
 @WebSocketGateway()
 export class SocketGateway {
   @WebSocketServer()
@@ -81,5 +80,10 @@ export class SocketGateway {
   handleTEST(@MessageBody() data: string, @ConnectedSocket() client : Socket ) {
     this.server.emit('test', client.id, data);
     console.log('received ping test');
+  }
+
+  @SubscribeMessage('UpdateProfile')
+  sendEditEvent(@ConnectedSocket() client : Socket) {
+    client.emit('profilEdit', 'none');
   }
 }

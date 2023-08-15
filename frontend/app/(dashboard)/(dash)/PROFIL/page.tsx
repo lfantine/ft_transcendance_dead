@@ -8,13 +8,15 @@ import { AuthResponse, sleep } from '@/(component)/other/utils';
 import style from './menu.module.css';
 
 import { TfiClose, TfiCheck } from "react-icons/tfi";
+import { useSocketContext } from '../layout';
 
 export default function ConnectPage() {
 	const { query } = url.parse(window.location.href, true);
 	const code = query.code;
 	const { push } = useRouter();
 
-  const [PpSrc, SetPpSrc] = useState('/noUser.jpg');
+  const socket = useSocketContext();
+  const [PpSrc, setPpSrc] = useState('/noUser.jpg');
 
 
   const [Uid, setUid] = useState('Loading...');
@@ -25,6 +27,8 @@ export default function ConnectPage() {
   const [Status, setStatus] = useState(-1);
   const [desc, setDesc] = useState('Loading...');
   const [descT, setDescT] = useState(true);
+  const [Lvl, setLvl] = useState(0);
+  const [Lvlbar, setLvlbar] = useState(0);
 
   // Reste de votre code...
 
@@ -54,6 +58,20 @@ export default function ConnectPage() {
       setEmail(rep.data.data.mail);
       setStatus(rep.data.data.status);
       setDesc(rep.data.data.desc);
+      if (rep.data.data.pic === undefined || rep.data.data.pic === null || rep.data.data.pic.data.length <= 0)
+        setPpSrc("/noUser.jpg");
+      else {
+        const binImg = rep.data.data.pic;
+        const binaryImg = new Uint8Array(binImg.data);
+				let base64Img = '';
+				binaryImg.forEach(byte => {
+					base64Img += String.fromCharCode(byte); // Convertir chaque octet en caractère
+				});
+				const imageUrl = `data:image/jpeg;base64,${btoa(base64Img)}`; // Convertir la représentation base64
+        setPpSrc(imageUrl);
+        setLvlbar(rep.data.data.level % 100);
+        setLvl((rep.data.data.level - (rep.data.data.level % 100)) / 100);
+      }
     } catch (e) {
 			console.log("getInfo error");
 		}
@@ -117,10 +135,6 @@ export default function ConnectPage() {
     }
   }
 
-  const changePP = () => {
-    console.log('change PP');
-  }
-
   const changeUsername = async () => {
     console.log('change Uname');
     const axiosI: AxiosInstance = axios.create({
@@ -172,17 +186,48 @@ export default function ConnectPage() {
     }
   }
 
+  const changePP = async () => {
+    try {
+      const input = document.getElementById('ppI') as HTMLInputElement;
+      if (input.files?.length === undefined || input.files?.length === 0) {return ;}
+      const reader = new FileReader();
+      console.log('posting pp');
+      reader.onloadend = async () => {
+        console.log('posting pp launched');
+        const base64String = reader.result as string;
+        const base64 = base64String.split(',')[1]; // Supprimer le préfixe "data:image/jpeg;base64,"
+        const res = await axios.post('https://localhost/api/dashboard/pic', {'image': base64}, { withCredentials: true});
+        if (res.data.error === true) {
+          input.value = '';
+          console.log('posting pp failed');
+          return ;
+        }
+        await sleep(1000);
+        getuserInfo();
+        socket.emit('UpdateProfile', "test");
+      };
+      if (input.files !== null) {
+				reader.readAsDataURL(input.files[0]);
+			}
+      input.value = '';
+    } catch (e) {
+      console.log('posting pp failed');
+    }
+  }
+
   const none = () => {}
 
   return (
     <main>
+      <div style={{height: '100px', width: '100%'}}></div>
       <div style={{height: '10px', width: '100%'}}></div> {/* cette ligne est fait pour cancel le probleme de top margin*/}
       
       <div className={style.Top}>
         <div className={style.ppborder}> 
           {/* POur la pp  */}
-          <img className={style.pp} src={PpSrc} onClick={changePP}></img>
-          <button className={style.changePp} onClick={changePP}>modif</button>
+          <img className={style.pp} src={PpSrc}></img>
+          <input type='file' className={style.changePpi} id='ppI'></input>
+          <button className={style.changePp} onClick={changePP}>SEND</button>
         </div>
         <div className={style.status} id='statusdiv' title='status: online'></div>
         <div className={style.TopMain}>
@@ -214,6 +259,10 @@ export default function ConnectPage() {
             <div className={style.topmainOneButtonBorderDESC} id='desc_i'><textarea placeholder='your description' id='desc_i_i' className={style.topmainOneInputDESC} maxLength={150}></textarea><div className={style.topmainOneButtonDESC} onClick={changeDescription}>SEND</div></div>
           </div>
         </div>
+      </div>
+      <div className={style.levelBar}>
+        <div style={{height: '100%', margin: 'auto', backgroundColor: 'white', borderRadius: '10px', width: `${Lvlbar}%`}}></div>
+        <div className={style.lvlbartxt}>Level : {Lvl}</div>
       </div>
     </main>
   );

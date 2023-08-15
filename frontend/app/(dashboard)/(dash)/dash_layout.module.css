@@ -1,5 +1,7 @@
 .Main {
 	height: 100%;
+	min-height: 800px;
+	min-width: 800px;
 	width: 100%;
 
 	background-image: url("/back3.jpg");
@@ -17,6 +19,8 @@
 	border-bottom: 3px solid white;
 
 	margin-top: 0px;
+
+	position: fixed;
 
 	display: flex;
 	flex-direction: row;
@@ -88,13 +92,18 @@
 	display: flex;
 	flex-direction: row;
 	gap: 10px;
+
+	position: relative;
+	top: 15px;
+
+	/* background-color: aliceblue */
 }
 
 .userPP {
 	width: 70px;
 	height: 70px;
 	border-radius: 50%;
-	background-image: url('/noUser.jpg');
+	background-color: rgb(0, 0, 68);
 	background-repeat: no-repeat;
 	background-size: cover;
 }
@@ -142,13 +151,17 @@
 
 .profilSelectOut {
 	height: fit-content;
-	width: fit-content;
+	width: 100%;
 
-	position: absolute;
-	top: 93px;
+	position: relative;
+	top: 10px;
 	z-index: 3;
 
 	overflow: hidden;
+	display: flex;
+	flex-direction: row;
+	justify-content: right;
+	/* background-color: rgb(134, 198, 255) */
 }
 
 .profilSelect {
@@ -220,7 +233,7 @@
 
 	position: absolute;
 	right: 4px;
-	top: 50px;
+	top: 90px;
 
 	pointer-events: none;
 }
