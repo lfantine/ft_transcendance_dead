@@ -29,9 +29,6 @@ export default function DashLayout({
   const [disconnecting, setDisconnecting] = useState(false);
   const [ppSrc, setPpSrc] = useState('/noUser.jpg')
 
-  const dda = 'some data is good';
-
-
   useEffect(() => {
     const checkLog = async () => {
       try {
@@ -55,6 +52,9 @@ export default function DashLayout({
 
   async function MEP() {
     try {
+      const outPanel = document.getElementById('outPanel');
+      if (outPanel)
+        outPanel.classList.add(style.hidden);
       const res = await axios.get("https://localhost/api/dashboard/minInfo", { withCredentials: true});
       if (res.data.data.pic === undefined || res.data.data.pic === null || res.data.data.pic.data.length <= 0) {
         setPpSrc("/noUser.jpg");
@@ -148,17 +148,21 @@ export default function DashLayout({
     push(routes.PROFIL);
   }
 
-  const todown = () => {
+  const todown = async () => {
     setDown(!down);
+    const outPanel = document.getElementById('outPanel');
     const panel = document.getElementById('panel');
-    if (panel) {
+    if (panel && outPanel) {
       if (!down) {
+        outPanel.classList.remove(style.hidden);
         panel.classList.remove(style.up);
         panel.classList.add(style.down);
       }
       else {
         panel.classList.remove(style.down);
         panel.classList.add(style.up);
+        await sleep(300);
+        outPanel.classList.add(style.hidden);
       }
     }
   }
@@ -214,13 +218,14 @@ export default function DashLayout({
           <div className={style.selectable} id='home'><button className={style.selectablebutton} onClick={home_page}>HOME</button></div>
           <div className={style.selectable} id='soc'><button className={style.selectablebutton} onClick={soc_page}>SOCIAL</button></div>
           <div className={style.selectable} id='game'><button className={style.selectablebutton} onClick={soc_page}>GAME</button></div>
+          <div className={style.selectable} id='game'><button className={style.selectablebutton} onClick={soc_page}>LEADERBOARD</button></div>
         </div>
         <div className={style.ppCat} id='caPo'>
           <div className={style.ppCatP} onClick={todown}>
             <div className={style.userN}>{Uid}</div>
             <img className={style.userPP} src={ppSrc}></img>
           </div>
-          <div className={style.profilSelectOut}>
+          <div className={style.profilSelectOut} id='outPanel'>
             <div className={style.profilSelect} id='panel'>
               <button className={style.selectablebuttonMin} onClick={profil_page}>Profile</button>
               <button className={style.selectablebuttonMin} onClick={logout}>Logout</button>

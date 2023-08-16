@@ -9,6 +9,8 @@ import style from './menu.module.css';
 
 import { TfiClose, TfiCheck } from "react-icons/tfi";
 import { useSocketContext } from '../layout';
+import Loading1 from '@/(component)/loading1/loading1';
+import Loading2 from '@/(component)/loading2/loading2';
 
 export default function ConnectPage() {
 	const { query } = url.parse(window.location.href, true);

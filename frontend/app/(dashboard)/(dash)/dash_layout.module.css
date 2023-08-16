@@ -53,7 +53,7 @@
 }
 
 .selectable:hover {
-	transform: scale(1.1) rotate(10deg);
+	transform: scale(1.1) rotate(6deg);
 }
 
 .cadreProfilBut {
@@ -94,7 +94,6 @@
 	gap: 10px;
 
 	position: relative;
-	top: 15px;
 
 	/* background-color: aliceblue */
 }
@@ -112,18 +111,17 @@
 	margin: auto;
 }
 
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 1600px) {
 	.allCat {
 		gap: 20px;
 	}
 
 	.userPP{
-		width: 30px;
 		background-image: none;
 	}
 }
 
-@media screen and (max-width: 650px) {
+@media screen and (max-width: 1025px) {
 	.allCat {
 		display: none;
 	}
@@ -155,13 +153,11 @@
 
 	position: relative;
 	top: 10px;
-	z-index: 3;
 
 	overflow: hidden;
 	display: flex;
 	flex-direction: row;
 	justify-content: right;
-	/* background-color: rgb(134, 198, 255) */
 }
 
 .profilSelect {
@@ -312,4 +308,8 @@
 	100% {
 		opacity: 0.2;
 	}
+}
+
+.hidden {
+	display: none;
 }

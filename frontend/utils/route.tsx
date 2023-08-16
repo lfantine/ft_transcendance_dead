@@ -6,6 +6,7 @@ export const routes = {
     HOME_REGISTER: '/register',
     CONNECT: '/connect',
     MENU: '/MENU',
-    SOCIAL: '/SOCIAL',
+    SOCIAL: '/SOCIAL/contact',
+    COM: '/SOCIAL/com',
     PROFIL: '/PROFIL',
 }
