@@ -128,8 +128,32 @@ export class DashboardController {
 				data: res.mess,
 				error: false
 			});
-			// this.socketGateway.sendEditEvent(res.socketId);
 			return res.mess;
+		} catch (e) {
+			console.log('post pp crashed');
+			response.send({
+				data: 'none',
+				error: true,
+				ErrorInfo: 'error while searching user'
+			});
+			return 'error';
+		}
+	}
+
+	@Post('searchUser')
+	@UseGuards(isAuthGuard)
+	async searchUser(@Req() request: RequestUser, @Res() response: Response) {
+		const userID = request.UserId;
+		const { pseudo } = request.body;
+		try {
+			if (userID === undefined)
+				throw new HttpException('Something went wrong !', HttpStatus.BAD_REQUEST);
+			const res: any = await this.dashService.searchUser(pseudo);
+			response.send({
+				data: res,
+				error: false
+			});
+			return res;
 		} catch (e) {
 			console.log('post pp crashed');
 			response.send({

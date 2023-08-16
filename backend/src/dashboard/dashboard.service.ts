@@ -54,4 +54,9 @@ export class DashboardService {
 			"socketId" : user.socketId,
 		};
 	}
+
+	async searchUser(pseudo: string) {
+		const userList = await this.userService.getUsersBySimilarPseudo(pseudo);
+		return userList;
+	}
 }

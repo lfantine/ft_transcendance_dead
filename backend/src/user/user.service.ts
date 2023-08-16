@@ -1,7 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import User from './User.entity';
-import { Repository } from 'typeorm';
+import { ILike, Repository } from 'typeorm';
 import CreateUserDto from './CreateUser.dto';
 
 @Injectable()
@@ -68,5 +68,14 @@ export class UserService {
 
 	async removeUser(id: number): Promise<void>{
 		await this.userRepository.delete(id);
+	}
+
+	async getUsersBySimilarPseudo(pseudo: string): Promise<User[]> {
+		return this.userRepository.find({
+		  where: {
+		    Uid: ILike(`%${pseudo}%`), // Utilisation de ILike pour la recherche insensible à la casse
+		  },
+		  select: ['Uid', 'username', 'level', 'pic'],
+		});
 	}
 }

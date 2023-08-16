@@ -30,7 +30,7 @@ export default function ComPage() {
       else {SPpanel.classList.add(style.hidden);}
   }
 
-  const click = () => {
+  const search = () => {
     const input = document.getElementById('i') as HTMLInputElement;
     const SPpanel = document.getElementById('searchPlayer');
     if (!input || !SPpanel)
@@ -39,7 +39,6 @@ export default function ComPage() {
       // toggleSearch(!actual);
       return true;
     });
-    console.log('value 2 = ' + searchPlayerActive);
     setValue(input.value);
   }
  
@@ -47,7 +46,7 @@ export default function ComPage() {
     <main className={style.main}>
       <div className={style.navBar}>
         <input type='text' id='i' placeholder='a user id' className={style.navI} maxLength={30}></input>
-        <button className={style.navB} onClick={click}>SEARCH</button>
+        <button className={style.navB} onClick={search}>SEARCH</button>
       </div>
       <div className={style.content}>
         <div className={style.searchPlayerPanel} id='searchPlayer'>
