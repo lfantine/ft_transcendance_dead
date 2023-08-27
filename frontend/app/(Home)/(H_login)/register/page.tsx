@@ -33,7 +33,7 @@ const valideForm = Joi.object({
 	confirmPassword: Joi.ref('password'),
 });
 
-export default function connect() {
+function connect() {
 
   const [conf, setConf] = useState('confirm password');
   const { register, handleSubmit } = useForm<rFormInterface>();
@@ -94,3 +94,15 @@ export default function connect() {
     </main>
   )
 }
+
+// export async function getServerSideProps() {
+//   // Fetch data from an API or any other data source
+//   // none here
+
+//   return {
+//     props: {
+//     },
+//   };
+// }
+
+export default connect;

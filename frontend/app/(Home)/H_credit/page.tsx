@@ -6,7 +6,7 @@ import style from './H_credit.module.css'
 import Loading1 from '@/(component)/loading1/loading1';
 import Loading2 from '@/(component)/loading2/loading2';
 
-export default function connect() {
+function connect() {
 
   useEffect(() => {
     const launchTag = async () => {
@@ -35,3 +35,15 @@ export default function connect() {
     </main>
   )
 }
+
+// export async function getServerSideProps() {
+//   // Fetch data from an API or any other data source
+//   // none here
+
+//   return {
+//     props: {
+//     },
+//   };
+// }
+
+export default connect;

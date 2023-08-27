@@ -7,7 +7,7 @@ import { useSocketContext } from '../../layout';
 import style from './style.module.css';
 import PlayerSearch from '@/(component)/playerSearch/playerSearch';
 
-export default function ComPage() {
+function ComPage() {
 	const { push } = useRouter();
   const socket = useSocketContext();
   const [searchPlayerActive, setSearchPlayerActive] = useState(false);
@@ -56,3 +56,15 @@ export default function ComPage() {
     </main>
   );
 }
+
+// export async function getServerSideProps() {
+//   // Fetch data from an API or any other data source
+//   // none here
+
+//   return {
+//     props: {
+//     },
+//   };
+// }
+
+export default ComPage;

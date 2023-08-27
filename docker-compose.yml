@@ -51,8 +51,6 @@ services:
         VERSION_POSTGRES: ${VERSION_POSTGRES}
     env_file:
       - .env
-    # expose:
-    #   - ${PORT_POSTGRES}
     networks:
       - proxy-net
     restart: always

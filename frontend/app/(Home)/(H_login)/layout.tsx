@@ -14,10 +14,13 @@ export default function LoginLayout({
 
   const {push} = useRouter();
   const [barState, setBarState] = useState(-3);
-  const Bar = document.getElementById('bar');
   const currentPath = usePathname();
   
   useEffect(() => {
+    let Bar: any;
+    if (typeof document !== "undefined") {
+      Bar = document.getElementById('bar');
+    }
      if (currentPath == "/register") {
         setBarState(1);
         Bar?.classList.remove(style.bar_log);
@@ -28,7 +31,7 @@ export default function LoginLayout({
         Bar?.classList.remove(style.bar_reg);
         Bar?.classList.add(style.bar_log);
     }
-  }, [currentPath, barState, Bar]);
+  }, [currentPath, barState]);
 
   const log_page = () => {
       push(routes.HOME_LOGIN);

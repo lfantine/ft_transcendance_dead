@@ -8,9 +8,7 @@ import { AuthResponse } from '@/(component)/other/utils';
 import style from './menu.module.css';
 import { useSocketContext } from '../layout';
 
-export default function ConnectPage() {
-	const { query } = url.parse(window.location.href, true);
-	const code = query.code;
+function ConnectPage() {
 	const { push } = useRouter();
   const socket = useSocketContext();
 
@@ -27,3 +25,15 @@ export default function ConnectPage() {
     </main>
   );
 }
+
+// export async function getServerSideProps() {
+//   // Fetch data from an API or any other data source
+//   // none here
+
+//   return {
+//     props: {
+//     },
+//   };
+// }
+
+export default ConnectPage;

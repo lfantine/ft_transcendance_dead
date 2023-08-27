@@ -21,17 +21,19 @@ const Wscaling = () => {
       return "Welcome to the best Pong game and ft_transcendance !";
 } 
 
-export default function Home() {
+function Home() {
 
   const [title, setTitle] = useState("Welcome");
 
   useEffect(() => {
+    if (typeof window !== "undefined") {
+      // Code dépendant de window à exécuter côté client
+      window.addEventListener('resize', function() {
+        setTitle(Wscaling());
+      });
+    }
     setTitle(Wscaling());
   }, []);
-
-  window.addEventListener('resize', function() {
-    setTitle(Wscaling());
-  });
 
   return (
     <main className={Style.Main}>
@@ -44,3 +46,15 @@ export default function Home() {
     </main>
   )
 }
+
+// export async function getServerSideProps() {
+//   // Fetch data from an API or any other data source
+//   // none here
+
+//   return {
+//     props: {
+//     },
+//   };
+// }
+
+export default Home;

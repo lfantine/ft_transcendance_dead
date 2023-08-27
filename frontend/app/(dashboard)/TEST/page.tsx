@@ -10,9 +10,7 @@ import SocketComponent from '@/(component)/Socket/socket';
 import { io } from 'socket.io-client';
 
 
-export default function ConnectPage() {
-	const { query } = url.parse(window.location.href, true);
-	const code = query.code;
+function ConnectPage() {
 	const { push } = useRouter();
 
 	const logout = async () => {
@@ -38,3 +36,15 @@ export default function ConnectPage() {
     </main>
   );
 }
+
+// export async function getServerSideProps() {
+// 	// Fetch data from an API or any other data source
+// 	// none here
+    
+// 	return {
+// 	  props: {
+// 	  },
+// 	};
+// }
+
+export default ConnectPage;

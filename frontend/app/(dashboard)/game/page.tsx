@@ -7,7 +7,7 @@ import { useRef } from 'react';
 const PLAYER_HEIGHT = 100;
 const PLAYER_WIDTH = 5;
 
-export default function Game() {
+function Game() {
 
   useEffect(() => {
     let canvas = document.getElementById('canvas') as HTMLCanvasElement;
@@ -136,3 +136,15 @@ export default function Game() {
     </main>
   );
 }
+
+// export async function getServerSideProps() {
+//   // Fetch data from an API or any other data source
+//   // none here
+
+//   return {
+//     props: {
+//     },
+//   };
+// }
+
+export default Game;

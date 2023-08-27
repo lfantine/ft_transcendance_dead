@@ -12,9 +12,7 @@ import { useSocketContext } from '../layout';
 import Loading1 from '@/(component)/loading1/loading1';
 import Loading2 from '@/(component)/loading2/loading2';
 
-export default function ConnectPage() {
-	const { query } = url.parse(window.location.href, true);
-	const code = query.code;
+function ConnectPage() {
 	const { push } = useRouter();
 
   const socket = useSocketContext();
@@ -80,6 +78,8 @@ export default function ConnectPage() {
   }
 
   const mep = async () => {
+    if (typeof document === undefined)
+      return ;
     const UnameInput = document.getElementById('uname_i');
     const UnameInfo = document.getElementById('uname_');
 
@@ -98,6 +98,8 @@ export default function ConnectPage() {
   }
 
   const ToggleUnameChange = () => {
+    if (typeof document === undefined)
+      return ;
     const UnameInput = document.getElementById('uname_i');
     const UnameInfo = document.getElementById('uname_');
     if (!UnameInfo || !UnameInput )
@@ -118,6 +120,8 @@ export default function ConnectPage() {
   }
 
   const ToggleUdescChange = () => {
+    if (typeof document === undefined)
+      return ;
     const UdescInput = document.getElementById('desc_i');
     const UdescInfo = document.getElementById('desc_');
     if (!UdescInfo || !UdescInput )
@@ -142,6 +146,8 @@ export default function ConnectPage() {
     const axiosI: AxiosInstance = axios.create({
       baseURL: '',
     });
+    if (typeof document === undefined)
+      return ;
     const input = document.getElementById('uname_i_i') as HTMLInputElement;
     if (input.value === desc) {
       ToggleUnameChange();
@@ -163,6 +169,8 @@ export default function ConnectPage() {
   }
 
   const changeDescription = async () => {
+    if (typeof document === undefined)
+      return ;
     console.log('change desc');
     const axiosI: AxiosInstance = axios.create({
       baseURL: '',
@@ -189,6 +197,8 @@ export default function ConnectPage() {
   }
 
   const changePP = async () => {
+    if (typeof document === undefined)
+      return ;
     try {
       const input = document.getElementById('ppI') as HTMLInputElement;
       if (input.files?.length === undefined || input.files?.length === 0) {return ;}
@@ -269,3 +279,15 @@ export default function ConnectPage() {
     </main>
   );
 }
+
+// export async function getServerSideProps() {
+//   // Fetch data from an API or any other data source
+//   // none here
+
+//   return {
+//     props: {
+//     },
+//   };
+// }
+
+export default ConnectPage;

@@ -25,7 +25,7 @@ const valideForm = Joi.object({
 		.pattern(new RegExp('^[a-zA-Z0-9]{6,30}$'))
 });
 
-export default function connect() {
+function connect() {
 
   const { register, handleSubmit } = useForm<lFormInterface>();
   const { push } = useRouter();
@@ -72,3 +72,15 @@ export default function connect() {
     </main>
   )
 }
+
+// export async function getServerSideProps() {
+//   // Fetch data from an API or any other data source
+//   // none here
+
+//   return {
+//     props: {
+//     },
+//   };
+// }
+
+export default connect;

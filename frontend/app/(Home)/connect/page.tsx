@@ -6,16 +6,16 @@ import url from 'url';
 import axios, { AxiosInstance } from 'axios';
 import { AuthResponse } from '@/(component)/other/utils';
 
-export default function ConnectPage() {
-  const { query } = url.parse(window.location.href, true);
-	const code = query.code;
-  const { push } = useRouter();
+function ConnectPage() {
+	const { push } = useRouter();
 
   useEffect(() => {
-    console.log(code);
     const takeToken = async () => {
-			const { query } = url.parse(window.location.href, true);
-			const code = query.code;	
+			let code;
+			if (typeof window !== "undefined") {
+				const { query } = url.parse(window.location.href, true);
+				code = query.code;
+			}
 			if (code){
 				try {
 					const axiosI: AxiosInstance = axios.create({
@@ -61,3 +61,15 @@ export default function ConnectPage() {
     </main>
   );
 }
+
+// export async function getServerSideProps() {
+// 	// Fetch data from an API or any other data source
+// 	// none here
+    
+// 	return {
+// 	  props: {
+// 	  },
+// 	};
+// }
+
+export default ConnectPage;
