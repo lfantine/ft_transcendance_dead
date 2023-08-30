@@ -148,7 +148,12 @@ export class DashboardController {
 		try {
 			if (userID === undefined)
 				throw new HttpException('Something went wrong !', HttpStatus.BAD_REQUEST);
-			const res: any = await this.dashService.searchUser(pseudo);
+			const ret: any = await this.dashService.searchUser(pseudo);
+			const ret2 = await this.dashService.getInfo(userID);
+			const res = {
+				"list":ret,
+				"me": ret2.username,
+			};
 			response.send({
 				data: res,
 				error: false
@@ -160,6 +165,31 @@ export class DashboardController {
 				data: 'none',
 				error: true,
 				ErrorInfo: 'error while searching user'
+			});
+			return 'error';
+		}
+	}
+
+	@Post('minProfil')
+	@UseGuards(isAuthGuard)
+	async minProfil(@Req() request: RequestUser, @Res() response: Response) {
+		const userID = request.UserId;
+		const { pseudo } = request.body;
+		try {
+			if (userID === undefined)
+				throw new HttpException('Something went wrong !', HttpStatus.BAD_REQUEST);
+			const res: any = await this.dashService.minProfil(pseudo);
+			response.send({
+				data: res,
+				error: false
+			});
+			return res;
+		} catch (e) {
+			console.log('min profil crashed');
+			response.send({
+				data: 'none',
+				error: true,
+				ErrorInfo: 'error while get min user profil'
 			});
 			return 'error';
 		}

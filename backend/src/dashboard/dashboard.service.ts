@@ -59,4 +59,17 @@ export class DashboardService {
 		const userList = await this.userService.getUsersBySimilarPseudo(pseudo);
 		return userList;
 	}
+
+	async minProfil(id: string) {
+		const user = await this.userService.findById(id);
+		return {
+			"pic": user.pic,
+			"username": user.username,
+			"Uid": user.Uid,
+			"desc": user.desc,
+			"MMR": user.MMR,
+			"level": user.level,
+			"status": user.status,
+		};
+	}
 }

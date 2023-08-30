@@ -75,7 +75,7 @@ export class UserService {
 		  where: {
 		    Uid: ILike(`%${pseudo}%`), // Utilisation de ILike pour la recherche insensible à la casse
 		  },
-		  select: ['Uid', 'username', 'level', 'pic'],
+		  select: ['Uid', 'username', 'level', 'pic', 'status'],
 		});
 	}
 }

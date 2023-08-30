@@ -6,12 +6,14 @@ import axios, { AxiosInstance } from 'axios';
 import { useSocketContext } from '../../layout';
 import style from './style.module.css';
 import PlayerSearch from '@/(component)/playerSearch/playerSearch';
+import { getRandomInt } from '@/utils/random';
 
 function ComPage() {
 	const { push } = useRouter();
   const socket = useSocketContext();
   const [searchPlayerActive, setSearchPlayerActive] = useState(false);
   const [value, setValue] = useState('Nartyy');
+  const [rd, setRd] = useState(10);
 
   // Reste de votre code...
 
@@ -31,14 +33,16 @@ function ComPage() {
   }
 
   const search = () => {
+    if (typeof document === undefined) {return ;}
     const input = document.getElementById('i') as HTMLInputElement;
     const SPpanel = document.getElementById('searchPlayer');
     if (!input || !SPpanel)
       return ;
     setSearchPlayerActive((actual) => {
-      // toggleSearch(!actual);
       return true;
     });
+    setRd(getRandomInt(0, 100));
+    console.log(rd);
     setValue(input.value);
   }
  
@@ -50,7 +54,7 @@ function ComPage() {
       </div>
       <div className={style.content}>
         <div className={style.searchPlayerPanel} id='searchPlayer'>
-          <PlayerSearch player={value}/>
+          <PlayerSearch player={value} rd={rd}/>
         </div>
       </div>
     </main>
