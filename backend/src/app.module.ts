@@ -7,11 +7,11 @@ import { DatabaseModule } from './database/database.module';
 import { ConfigModule } from '@nestjs/config';
 import { SocketModule } from './socket/socket.module';
 import { DashboardModule } from './dashboard/dashboard.module';
-import { gameGateway } from './game/game.gateway';
+// import { gameGateway } from './game/game.gateway';
 
 @Module({
   imports: [AuthModule, DatabaseModule, ConfigModule, UserModule, SocketModule, DashboardModule],
   controllers: [AppController],
-  providers: [AppService, gameGateway],
+  providers: [AppService],
 })
 export class AppModule {}
