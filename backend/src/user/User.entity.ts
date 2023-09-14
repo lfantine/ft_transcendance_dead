@@ -29,6 +29,15 @@ class User {
 	@Column()
 	MMR: number;
 
+	@Column()
+	nbGamePlayed: number;
+
+	@Column()
+	victory: number;
+
+	@Column("text", )
+	history: string;
+
 	// For socket
 
 	@Column()

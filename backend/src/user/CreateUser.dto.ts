@@ -6,6 +6,9 @@ class CreateUserDto{
 	pic: Buffer;
 	MMR: number;
 	desc: string;
+	nbGamePlayed: number;
+	victory: number;
+	history: string;
 
 	// For the socket
 	socketId: string;

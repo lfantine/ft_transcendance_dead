@@ -10,7 +10,8 @@
 	width: 99%;
 	height: auto;
 	max-height: calc(100vh - 300px);
-	min-height: 400px;
+	height: calc(100vh - 300px);
+	min-height: 800px;
 	border: 1px solid white;
 
 	background-color: rgba(181, 255, 255, 0.397);
@@ -144,12 +145,12 @@
 .tabProfil {
 	width: 99%;
 	/* height: auto; */
-	height: calc(100vh - 300px);
-	min-height: 550px;
+	height: 1000px;
 	border: 1px solid rgba(255, 255, 255, 0);
-	background-color: aqua;
+	background-color: red;
 
-	display: grid;
+	display: flex;
+	flex-direction: column;
 }
 
 .UserSPpCadre {
@@ -178,6 +179,19 @@
 	flex-direction: column;
 }
 
+.USInfoCadre2 {
+	height: 300px;
+	width: calc(100vw - 340px);
+	max-width: 800px;
+	min-width: 450px;
+	border-radius: 10px;
+	overflow: hidden;
+	margin: auto;
+	background-color: azure;
+	display: flex;
+	flex-direction: column;
+}
+
 .Finfo {
 	height: fit-content;
 	width: fit-content;
@@ -187,6 +201,7 @@
 	margin: 0 auto;
 	margin-top: 10px;
 	gap: 10px;
+
 }
 
 @media screen and (max-width: 1450px) {
@@ -197,6 +212,10 @@
 
 	@media screen and (max-height: 1000px) {
 		.UserSPpCadre {
+			height: 200px;
+			width: 200px;
+		}
+		.UserSPpCadre2 {
 			height: 200px;
 			width: 200px;
 		}

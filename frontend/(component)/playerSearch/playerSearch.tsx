@@ -119,7 +119,7 @@ const PlayerSearch = ({ player, rd } : any) => {
 		if (!searchTab || !profilTab) {return ;}
 		searchTab.classList.add(style.hidden);
 		profilTab.classList.add(style.hidden);
-		profilTab.classList.remove(style.hidden);
+		searchTab.classList.remove(style.hidden);
 		console.log(rd);
 		return ;
 	}, [player]);
@@ -163,6 +163,14 @@ const PlayerSearch = ({ player, rd } : any) => {
 						<div className={style.info}><div className={style.Tinfo}>o</div>: <div className={style.Cinfo}>o</div></div>
 						<div className={style.infoDesc}><textarea className={style.DescInfo} readOnly={true}>chapi chapo</textarea></div>
 					</div>
+				</div>
+				<div className={style.USInfoCadre2}>
+					<div className={style.info}><div className={style.Tinfo}>Display name</div>: <div className={style.Cinfo}>opoooooooooooooooooooooooooooooooooo</div></div>
+					<div className={style.info}><div className={style.Tinfo}>Username</div>: <div className={style.Cinfo}>o</div></div>
+					<div className={style.info}><div className={style.Tinfo}>Level</div>: <div className={style.Cinfo}>o</div></div>
+					<div className={style.info}><div className={style.Tinfo}>o</div>: <div className={style.Cinfo}>o</div></div>
+					<div className={style.info}><div className={style.Tinfo}>o</div>: <div className={style.Cinfo}>o</div></div>
+					<div className={style.infoDesc}><textarea className={style.DescInfo} readOnly={true}>chapi chapo</textarea></div>
 				</div>
 			</div>
 		</main>
