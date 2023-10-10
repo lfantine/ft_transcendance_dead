@@ -280,14 +280,4 @@ function ConnectPage() {
   );
 }
 
-// export async function getServerSideProps() {
-//   // Fetch data from an API or any other data source
-//   // none here
-
-//   return {
-//     props: {
-//     },
-//   };
-// }
-
 export default ConnectPage;

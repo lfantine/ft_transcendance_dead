@@ -1,0 +1,144 @@
+.main {
+	width: 100%;
+	height: calc(100vh - 115px);
+	max-width: calc(100vw - 300px);
+	min-height: 800px;
+	min-width: 500px;
+	overflow: hidden;
+	background-color: transparent;
+}
+
+.cadre {
+	margin-top: 120px;
+	margin-left: 40px;
+	width: calc(100vw - 400px);
+	min-width: 400px;
+	height: calc(100% - 120px - 10px);
+	max-height: calc(100% - 120px - 10px);
+	background-color: rgb(0, 0, 87);
+	border-left: 1px solid white;
+	border-right: 1px solid white;
+	border-top: 1px solid white;
+	/* background: linear-gradient(0deg, transparent, rgb(0, 0, 87) 10%, rgb(0, 0, 87) 90%, transparent 100%); */
+
+	display: flex;
+	flex-direction: column;
+}
+
+.chatTitle {
+	flex: 0 0 50px;
+	background-color: rgb(0, 0, 87);
+	height: fit-content;
+}
+
+.chatTitletext {
+	width: fit-content;
+	height: fit-content;
+	margin: auto;
+	font-size: 40px;
+}
+
+/* @media (max-width: 900px) {
+
+} */
+
+.chatSpace {
+	flex: 1;
+	background-color: rgb(2, 0, 29);
+
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+
+.chatSpaceDate {
+	height: 25px;
+	display: flex;
+	flex-direction: row;
+}
+
+.chatSpaceDateBar {
+	flex: 1;
+	height: 1px;
+	background-color: white;
+	margin: auto;
+}
+
+.chatSpaceDateText {
+	margin: auto;
+}
+
+.chatSpaceMessageYou {
+	min-height: 15px;
+	height: fit-content;
+	width: 100%;
+	margin-bottom: 10px;
+
+	display: flex;
+	flex-direction: row;
+	justify-content: left;
+
+	.chatSpaceMessageText {
+		margin-left: 10px;
+		background-color: rgb(0, 0, 88);
+	}
+}
+
+.chatSpaceMessageMe {
+	min-height: 15px;
+	height: fit-content;
+	width: 100%;
+	margin-bottom: 10px;
+
+	display: flex;
+	flex-direction: row;
+	justify-content: right;
+
+	.chatSpaceMessageText {
+		margin-right: 10px;
+		background-color: rgb(31, 31, 82);
+	}
+}
+
+.chatSpaceMessageText {
+	width: fit-content;
+	max-width: calc(100% - 20px);;
+	height: fit-content;
+	padding: 5px 10px;
+	resize: none;
+	color: white;
+	border-radius: 20px;
+	word-wrap: break-word;
+}
+
+.chatWrite {
+	flex: 0 0 60px;
+	background-color: rgb(0, 0, 87);
+
+	display: flex;
+	flex-direction: row;
+}
+
+
+
+.chatWriteInput {
+	width: calc(100% - 60px - 10px);
+	height: 80%;
+	resize: none;
+	background-color: transparent;
+	margin: auto 0;
+	margin-left: 10px;
+	color: white;
+
+	overflow-y: auto;
+}
+
+.chatWriteButton {
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	margin: auto;
+}
+
+.chatWriteButton:hover {
+	transform: scale(1.2);
+}

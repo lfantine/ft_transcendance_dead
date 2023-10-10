@@ -38,6 +38,12 @@ class User {
 	@Column("text", )
 	history: string;
 
+	@Column('text', { array: true })
+	friends: string[];
+
+	@Column('text', { array: true })
+	recent_contact: string[];
+
 	// For socket
 
 	@Column()

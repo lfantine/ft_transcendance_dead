@@ -29,6 +29,22 @@ export class DashboardService {
 		return user;
 	}
 
+	async getInfoPseudo(id: string) {
+		const user = await this.userService.findByUid(id);
+		// ici enlever toutes les info personels
+		return user;
+	}
+
+	async MajRecentUser(userName: string, meId: any) {
+		const me = await this.userService.findById(meId);
+		if (me.recent_contact.includes(userName)){
+			const index = me.recent_contact.indexOf(userName);
+			me.recent_contact.splice(index, 1);
+		}
+		me.recent_contact.push(userName);
+		this.userService.updateUser(me);
+	}
+
 	async postDesc(id: string, desc: string) {
 		const user = await this.userService.findById(id);
 		user.desc = desc;
@@ -72,5 +88,32 @@ export class DashboardService {
 			"level": user.level,
 			"status": user.status,
 		};
+	}
+
+	async addFriend(friend: string, me: string) {
+		const meUser = await this.userService.findById(me);
+		const fUser = await this.userService.findByUid(friend);
+		meUser.friends.push(friend);
+		await this.userService.updateUser(meUser);
+	}
+
+	async removeFriend(friend: string, me: string) {
+		const meUser = await this.userService.findById(me);
+		const fUser = await this.userService.findByUid(friend);
+		if (meUser.friends.includes(friend)){
+			const index = meUser.friends.indexOf(friend);
+			meUser.friends.splice(index, 1);
+			await this.userService.updateUser(meUser);
+		}
+	}
+
+	async getRecentUser(id: any) {
+		const User = await this.userService.findById(id);
+		return User.recent_contact;
+	}
+
+	async getMyFriends(id: any) {
+		const User = await this.userService.findById(id);
+		return User.friends;
 	}
 }

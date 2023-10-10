@@ -153,6 +153,7 @@ export class DashboardController {
 			const res = {
 				"list":ret,
 				"me": ret2.username,
+				"myFriends": ret2.friends,
 			};
 			response.send({
 				data: res,
@@ -160,11 +161,62 @@ export class DashboardController {
 			});
 			return res;
 		} catch (e) {
-			console.log('post pp crashed');
+			console.log('crashed');
 			response.send({
 				data: 'none',
 				error: true,
 				ErrorInfo: 'error while searching user'
+			});
+			return 'error';
+		}
+	}
+
+	@Post('getUser')
+	@UseGuards(isAuthGuard)
+	async getUser(@Req() request: RequestUser, @Res() response: Response) {
+		const userID = request.UserId;
+		const { pseudo } = request.body;
+		try {
+			if (userID === undefined)
+				throw new HttpException('Something went wrong !', HttpStatus.BAD_REQUEST);
+			const res: any = await this.dashService.getInfoPseudo(pseudo);
+			await this.dashService.MajRecentUser(res.Uid, userID);
+			response.send({
+				data: res,
+				error: false
+			});
+			return res;
+		} catch (e) {
+			console.log('crashed');
+			response.send({
+				data: 'none',
+				error: true,
+				ErrorInfo: 'error while searching user info'
+			});
+			return 'error';
+		}
+	}
+
+	@Post('getUserother')
+	@UseGuards(isAuthGuard)
+	async getUserOther(@Req() request: RequestUser, @Res() response: Response) {
+		const userID = request.UserId;
+		const { pseudo } = request.body;
+		try {
+			if (userID === undefined)
+				throw new HttpException('Something went wrong !', HttpStatus.BAD_REQUEST);
+			const res: any = await this.dashService.getInfoPseudo(pseudo);
+			response.send({
+				data: res,
+				error: false
+			});
+			return res;
+		} catch (e) {
+			console.log('crashed');
+			response.send({
+				data: 'none',
+				error: true,
+				ErrorInfo: 'error while searching user info'
 			});
 			return 'error';
 		}
@@ -190,6 +242,104 @@ export class DashboardController {
 				data: 'none',
 				error: true,
 				ErrorInfo: 'error while get min user profil'
+			});
+			return 'error';
+		}
+	}
+
+	@Post('addFriend')
+	@UseGuards(isAuthGuard)
+	async addFriend(@Req() request: RequestUser, @Res() response: Response) {
+		const userID = request.UserId;
+		const { friend } = request.body;
+		try {
+			if (userID === undefined)
+				throw new HttpException('Something went wrong !', HttpStatus.BAD_REQUEST);
+			const res: any = await this.dashService.addFriend(friend, userID);
+			response.send({
+				data: res,
+				error: false
+			});
+			return res;
+		} catch (e) {
+			console.log('crashed while ' + userID + ' add friend' + friend);
+			response.send({
+				data: 'none',
+				error: true,
+				ErrorInfo: 'error while adding friend'
+			});
+			return 'error';
+		}
+	}
+
+	@Post('removeFriend')
+	@UseGuards(isAuthGuard)
+	async removeFriend(@Req() request: RequestUser, @Res() response: Response) {
+		const userID = request.UserId;
+		const { friend, me } = request.body;
+		try {
+			if (userID === undefined)
+				throw new HttpException('Something went wrong !', HttpStatus.BAD_REQUEST);
+			const res: any = await this.dashService.removeFriend(friend, userID);
+			response.send({
+				data: res,
+				error: false
+			});
+			return res;
+		} catch (e) {
+			console.log('crashed while' + me + 'remove friend' + friend);
+			response.send({
+				data: 'none',
+				error: true,
+				ErrorInfo: 'error while removing friend'
+			});
+			return 'error';
+		}
+	}
+
+	@Get('getRecentUser')
+	@UseGuards(isAuthGuard)
+	async getRecentUser(@Req() request: RequestUser, @Res() response: Response) {
+		const userID = request.UserId;
+		try {
+			if (userID === undefined)
+				throw new HttpException('Something went wrong !', HttpStatus.BAD_REQUEST);
+			const res: any = await this.dashService.getRecentUser(userID);
+			response.send({
+				data: res,
+				error: false
+			});
+			return res;
+		} catch (e) {
+			console.log('crashed while getting recent user');
+			response.send({
+				data: 'none',
+				error: true,
+				ErrorInfo: 'error while getting recent user'
+			});
+			return 'error';
+		}
+	}
+
+	@Get('myfriends')
+	@UseGuards(isAuthGuard)
+	async myfriends(@Req() request: RequestUser, @Res() response: Response) {
+		const userID = request.UserId;
+		try {
+			if (userID === undefined)
+				throw new HttpException('Something went wrong !', HttpStatus.BAD_REQUEST);
+			const res: any = await this.dashService.getMyFriends(userID);
+			response.send({
+				data: res,
+				error: false
+			});
+			return res;
+		} catch (e) {
+			console.log('crashed while getting recent user');
+			response.send({
+				data: 'none',
+				error: true,
+				ErrorInfo: 'error while getting recent user'
 			});
 			return 'error';
 		}

@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation';
 import io from "socket.io-client";
 import { routes } from '@/utils/route';
 import { sleep } from '@/(component)/other/utils';
+import { IoIosWarning } from "react-icons/io";
 
 const waitingForData: any = null;
 const SocketContext = createContext(waitingForData);
@@ -167,24 +168,42 @@ export default function DashLayout({
     }
   }
 
+  const IconErrorComponent = () => <IoIosWarning />;
+
   const addNotif = async (title : string, content: string, type: number) => {
-    console.log('launch addnotif');
     const banner = document.getElementById('notifbanner');
     const notif = document.createElement('div');
-    if (type === 0) {notif.classList.add(style.notifError);}
-    else if (type === 1) {notif.classList.add(style.notifConnected);}
-    else if (type === 2) {notif.classList.add(style.notifSystem);}
-    else if (type === 3) {notif.classList.add(style.notifNone);}
+    // if (type === 0) {notif.classList.add(style.notifError);}
+    // else if (type === 1) {notif.classList.add(style.notifConnected);}
+    // else if (type === 2) {notif.classList.add(style.notifSystem);}
+    // else if (type === 3) {notif.classList.add(style.notifNone);}
 
-    const notifTitle = document.createElement('h4');
-    notifTitle.classList.add(style.notifTitle);
-    notifTitle.innerText = title + ' :';
+    notif.classList.add(style.notifAll);
+
+    const notifTitle = document.createElement('div');
+    notifTitle.classList.add(style.notifIcon);
+    notifTitle.innerHTML = '<IoIosWarning/>';
     notif.appendChild(notifTitle);
 
-    const notifContent = document.createElement('p');
-    notifContent.classList.add(style.notifContent);
-    notifContent.innerText = content;
-    notif.appendChild(notifContent);
+    // const Io = document.createElement('IoIosWarning');
+    // notifTitle.appendChild(Io);
+
+    if (type === 0) {
+
+    }
+    else if (type === 1) {
+
+    }
+    else if (type === 2) {
+
+    }
+    else if (type === 3) {
+
+    }
+    // const notifContent = document.createElement('p');
+    // notifContent.classList.add(style.notifContent);
+    // notifContent.innerHTML = '';
+    // notif.appendChild(notifContent);
 
     notif.classList.add(style.notifanimate);
     if (banner) {
@@ -195,7 +214,7 @@ export default function DashLayout({
   }
 
   const createNotif = () => {
-    addNotif("Error", "notif test", 0);
+    addNotif("X", "notif test", 0);
   }
   const createNotif2 = () => {
     addNotif("New User", "lfantine is connected", 1);
@@ -235,11 +254,15 @@ export default function DashLayout({
       </div>
       <div className={style.notifBanner} id='notifbanner'>
       </div>
-      {/* <button onClick={createNotif}>new notif</button>
-      <button onClick={createNotif2}>new notif</button>
-      <button onClick={createNotif3}>new notif</button>
-      <button onClick={createNotif4}>new notif</button>
-      <button onClick={sendPing}>Send Ping</button> */}
+      {/* <div style={{height: '50px', width: '100%', marginTop: 0, backgroundColor: 'blue'}}></div> */}
+      {/* <div style={{height: 'fit-content', width: 'fit-content', marginTop: 50}}>
+        <button onClick={createNotif}>new notif</button>
+        <button onClick={createNotif2}>new notif</button>
+        <button onClick={createNotif3}>new notif</button>
+        <button onClick={createNotif4}>new notif</button>
+        <button onClick={sendPing}>Send Ping</button>
+        <IoIosWarning/>
+      </div> */}
       <SocketContext.Provider value={socket}>
         {children}
       </SocketContext.Provider>

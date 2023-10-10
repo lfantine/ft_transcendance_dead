@@ -9,6 +9,8 @@ class CreateUserDto{
 	nbGamePlayed: number;
 	victory: number;
 	history: string;
+	friends: string[];
+	recent_contact: string[];
 
 	// For the socket
 	socketId: string;

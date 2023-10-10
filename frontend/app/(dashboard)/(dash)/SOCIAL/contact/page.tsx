@@ -7,6 +7,8 @@ import { useSocketContext } from '../../layout';
 import style from './style.module.css';
 import PlayerSearch from '@/(component)/playerSearch/playerSearch';
 import { getRandomInt } from '@/utils/random';
+import { sleep } from '@/(component)/other/utils';
+import { useProfilContext } from '../layout';
 
 function ComPage() {
 	const { push } = useRouter();
@@ -14,15 +16,20 @@ function ComPage() {
   const [searchPlayerActive, setSearchPlayerActive] = useState(false);
   const [value, setValue] = useState('Nartyy');
   const [rd, setRd] = useState(10);
+  const {profil, MAJprofilSearched} = useProfilContext();
 
   // Reste de votre code...
 
   useEffect(() => {
     toggleSearch(searchPlayerActive);
+    if (profil !== 'none') {
+      console.log('profile pas none : ' + profil);
+      goProfil(profil);
+    }
     // toggleSearch(true);
 
     return ;
-  }, [searchPlayerActive]);
+  }, [searchPlayerActive, profil]);
 
   const toggleSearch = (actif: boolean) => {
     const SPpanel = document.getElementById('searchPlayer');
@@ -32,8 +39,23 @@ function ComPage() {
       else {SPpanel.classList.add(style.hidden);}
   }
 
-  const search = () => {
+  const goProfil = async (profilname: string) => {
     if (typeof document === undefined) {return ;}
+    MAJprofilSearched('none');
+    const input = document.getElementById('i') as HTMLInputElement;
+    const SPpanel = document.getElementById('searchPlayer');
+    if (!input || !SPpanel)
+      return ;
+    setSearchPlayerActive((actual) => {
+      return true;
+    });
+    setRd(getRandomInt(101, 200));
+    setValue(profilname);
+  }
+
+  const search = async () => {
+    if (typeof document === undefined) {return ;}
+    MAJprofilSearched('none');
     const input = document.getElementById('i') as HTMLInputElement;
     const SPpanel = document.getElementById('searchPlayer');
     if (!input || !SPpanel)
@@ -42,7 +64,6 @@ function ComPage() {
       return true;
     });
     setRd(getRandomInt(0, 100));
-    console.log(rd);
     setValue(input.value);
   }
  

@@ -147,7 +147,7 @@
 	/* height: auto; */
 	height: 1000px;
 	border: 1px solid rgba(255, 255, 255, 0);
-	background-color: red;
+	/* background-color: red; */
 
 	display: flex;
 	flex-direction: column;
@@ -174,9 +174,10 @@
 	border-radius: 10px;
 	overflow: hidden;
 	margin: auto;
-	background-color: azure;
+	background-color: rgba(20, 6, 99, 0.425);
 	display: flex;
 	flex-direction: column;
+	border: 1px solid white;
 }
 
 .USInfoCadre2 {
@@ -187,9 +188,10 @@
 	border-radius: 10px;
 	overflow: hidden;
 	margin: auto;
-	background-color: azure;
+	background-color: rgba(20, 6, 99, 0.425);
 	display: flex;
 	flex-direction: column;
+	border: 1px solid white;
 }
 
 .Finfo {
@@ -224,7 +226,7 @@
 
 .info {
 	height: 30px;
-	background-color: blue;
+	/* background-color: blue; */
 	width: 95%;
 	margin: 0 auto;
 	margin-top: 10px;
@@ -241,7 +243,7 @@
 .Tinfo {
 	width: 150px;
 	min-width: 150px;
-	background-color: antiquewhite;
+	/* background-color: antiquewhite; */
 }
 
 .Cinfo {
@@ -251,10 +253,13 @@
 
 .infoDesc {
 	height: 80px;
-	background-color: blue;
+	/* background-color: blue; */
+	background-color: transparent;
+	border-top: 1px solid white;
 	width: 95%;
 	margin: 0 auto;
 	margin-top: 10px;
+	border: 0;
 }
 
 .DescInfo {
@@ -262,13 +267,37 @@
 	width: 100%;
 	resize: none;
 	border: 0;
-	background-color: blue;
+	/* background-color: blue; */
+	background-color: transparent;
+	border-top: 1px solid white;
+	color: white;
+	font-size: 20px;
 }
 
 .DescInfo:focus {
 	border: 0;
 	border-color: transparent;
 	outline: none;
+}
+
+.isFriend {
+	width: fit-content;
+	height: fit-content;
+	border-radius: 1px;
+	background-color: rgb(166, 255, 166);
+	color: black;
+	font-size: 20px;
+	margin: auto;
+}
+
+.isNotFriend {
+	width: fit-content;
+	height: fit-content;
+	border-radius: 1px;
+	background-color: rgb(255, 166, 166);
+	color: black;
+	font-size: 20px;
+	margin: auto;
 }
 
 .hidden {

@@ -235,68 +235,27 @@
 	pointer-events: none;
 }
 
+.notifAll {
+	height: 50px;
+	width: 95%;
+
+	background-color: rgb(255, 255, 255);
+	border: 3px solid black;
+	border-radius: 20px;
+	margin-top: 20px;
+}
+
+.notifIcon {
+	width: 100%;
+	height: fit-content;
+	font-size: 20px;
+	color: blue;
+	background-color: green;
+	margin-top: 13px;
+}
+
 .notifanimate {
 	animation: notif 5s linear forwards;
-}
-
-.notifError {
-	width: 90%;
-	height: 100px;
-	border-radius: 20px;
-	background-color: rgb(165, 138, 138);
-	border: 2px solid red;
-	margin: 10px auto;
-
-	color: black;
-}
-
-.notifConnected {
-	width: 90%;
-	height: 100px;
-	border-radius: 20px;
-	background-color: rgb(138, 165, 144);
-	border: 2px solid rgb(0, 255, 0);
-	margin: 10px auto;
-
-	color: black;
-}
-
-.notifSystem {
-	width: 90%;
-	height: 100px;
-	border-radius: 20px;
-	background-color: rgb(138, 147, 165);
-	border: 2px solid rgb(0, 81, 255);
-	margin: 10px auto;
-
-	color: black;
-}
-
-.notifNone {
-	width: 90%;
-	height: 100px;
-	border-radius: 20px;
-	background-color: rgb(168, 168, 168);
-	border: 2px solid rgb(255, 255, 255);
-	margin: 10px auto;
-
-	color: black;
-}
-
-.notifTitle {
-	font-size: 30px;
-	margin: 0;
-	margin-left: 20px;
-	margin-top: 10px;
-
-	height:fit-content;
-	width: fit-content;
-}
-
-.notifContent {
-	font-size: 25px;
-	margin: 0;
-	margin-left: 20px;
 }
 
 @keyframes notif {

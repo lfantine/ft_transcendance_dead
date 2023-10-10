@@ -49,6 +49,7 @@ export class UserService {
 	}
 
 	async createUser(userData: CreateUserDto) {
+		console.log(userData);
 		const newUser = await this.userRepository.create(userData);
 		await this.userRepository.save(newUser);
 		return newUser;
@@ -75,7 +76,7 @@ export class UserService {
 		  where: {
 		    Uid: ILike(`%${pseudo}%`), // Utilisation de ILike pour la recherche insensible à la casse
 		  },
-		  select: ['Uid', 'username', 'level', 'pic', 'status'],
+		  select: ['Uid', 'username', 'level', 'pic', 'status', 'friends'],
 		});
 	}
 }

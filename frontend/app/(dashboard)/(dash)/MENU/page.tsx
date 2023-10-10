@@ -20,8 +20,9 @@ function ConnectPage() {
 
   return (
     <main>
-      <div style={{height: '10px', width: '100%'}}></div> {/* cette ligne est fait pour cancel le probleme de top margin*/}
+      <div style={{height: '200px', width: '100%'}}></div> {/* cette ligne est fait pour cancel le probleme de top margin*/}
       <button onClick={sendPing}>APPUIE !</button>
+      <canvas style={{height: 300, width: 600, backgroundColor: 'blue'}}></canvas>
     </main>
   );
 }
