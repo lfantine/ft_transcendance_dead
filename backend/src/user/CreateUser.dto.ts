@@ -1,3 +1,5 @@
+import {player_spoken} from "src/interface/mp_speak/player_spoken";
+
 class CreateUserDto{
 	mail: string;
 	Uid: string; // is for kmow friend and contact 

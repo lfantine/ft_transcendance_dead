@@ -66,10 +66,10 @@ export class SocketGateway {
   }
 
   //recevoir un event ()
-  @SubscribeMessage('message')
-  handleEvent(@MessageBody() data: string, @ConnectedSocket() client : Socket ) {
-    this.server.emit('message', client.id, data);
-  }
+  // @SubscribeMessage('message')
+  // handleEvent(@MessageBody() data: string, @ConnectedSocket() client : Socket ) {
+  //   this.server.emit('message', client.id, data);
+  // }
 
   @SubscribeMessage('other')
   handleOther(@MessageBody() data: string, @ConnectedSocket() client : Socket ) {
@@ -85,5 +85,28 @@ export class SocketGateway {
   @SubscribeMessage('UpdateProfile')
   sendEditEvent(@ConnectedSocket() client : Socket) {
     client.emit('profilEdit', 'none');
+  }
+
+
+  @SubscribeMessage('message')
+  async messageSend(@MessageBody() data: any, @ConnectedSocket() client : Socket ) { // data = {mess, author, dest}
+    try {
+      const destSocketId = await this.socketService.getSocketIdFromUid(data.dest);
+      this.socketService.MajRecentUser(data.author, data.dest);
+      this.sendToSocketId(destSocketId, 'message', {message: data.mess, author: data.author});
+      this.sendToSocketId(destSocketId, 'recentMaj', {});
+      console.log('a envoyer message');
+    } catch (e) {
+      console.log('failed to send message');
+    }
+  }
+
+  @SubscribeMessage('majRecent')
+  async automajrecent(@MessageBody() data: any, @ConnectedSocket() client : Socket ) { // data = {mess, author, dest}
+    try {
+      client.emit('recentMaj', {});
+    } catch (e) {
+      console.log('failed to maj recent');
+    }
   }
 }

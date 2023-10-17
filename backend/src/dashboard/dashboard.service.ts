@@ -4,6 +4,9 @@ import { JwtService } from '@nestjs/jwt';
 import { UserService } from 'src/user/user.service';
 import { Response, Request } from 'express';
 import { SocketGateway } from 'src/socket/socket.gateway';
+import { MessageService } from 'src/message/message.service';
+import { MpService } from 'src/mp/mp.service';
+import { player_spoken } from 'src/interface/mp_speak/player_spoken';
 
 
 @Injectable()
@@ -11,6 +14,8 @@ export class DashboardService {
 
 	constructor(
 		private userService: UserService,
+		private messageService: MessageService,
+		private mpService: MpService,
 		private configService: ConfigService,
 		private jwtService: JwtService,
 	) {}
@@ -115,5 +120,96 @@ export class DashboardService {
 	async getMyFriends(id: any) {
 		const User = await this.userService.findById(id);
 		return User.friends;
+	}
+
+	async checkConversationExist(DestUid: string, MyId: string) {
+		const Me = await this.userService.findByIdWithMps(MyId);
+		console.log(Me.MPs);
+		const mp_ = Me.MPs.find((mps) => mps.dest === DestUid);
+		return {
+			mp: mp_,
+			me: Me.Uid,
+		};
+	}
+
+	async GoConversation(DestUid: string, MyId: string) {
+		try {
+			const {mp, me} = await this.checkConversationExist(DestUid, MyId);
+			if (mp !== undefined) {
+				const theMp = await this.mpService.findByIdWithMps(mp.id);
+				return {
+					mess: theMp.messages,
+					you: me,
+				};
+			} else {
+				const Me = await this.userService.findByIdWithMps(MyId);
+				const Dest = await this.userService.findByUidWithMps(DestUid);
+				
+				const MyMp = await this.mpService.createMp({dest: DestUid, user_attach: Me});
+				const DestMp = await this.mpService.createMp({dest: Me.Uid, user_attach: Dest});
+				
+				const MeFirstMess = await this.messageService.createMessage({author: 'none', text: '12-10-2023', isDate: true, mp: MyMp});
+				const DestFirstMess = await this.messageService.createMessage({author: 'none', text: '12-10-2023', isDate: true, mp: DestMp});
+				
+				if (MyMp.messages === undefined) {
+					MyMp.messages = [];
+				}
+				if (DestMp.messages === undefined) {
+					DestMp.messages = [];
+				}
+				MyMp.messages.push(MeFirstMess);
+				DestMp.messages.push(DestFirstMess);
+				
+				await this.mpService.updateMp(MyMp);
+				await this.mpService.updateMp(DestMp);
+				
+				if (Me.MPs === undefined) {
+					Me.MPs = [];
+				}
+				if (Dest.MPs === undefined) {
+					Dest.MPs = [];
+				}
+				Me.MPs.push(MyMp);
+				Dest.MPs.push(DestMp);
+				
+				await this.userService.updateUser(Me);
+				await this.userService.updateUser(Dest);
+				
+				return {
+					mess: MyMp.messages,
+					you: Me.Uid,
+				};
+			}
+		} catch (e) {
+			console.log('EXCEPTION');
+			console.log(e);
+			console.log('--------------------');
+			return undefined;
+		}
+	}
+
+	async sendMess(DestUid: string, MyId: string, mess: string) {
+		const Me = await this.userService.findByIdWithMps(MyId);
+		const Dest = await this.userService.findByUidWithMps(DestUid);
+		
+		const MeMp_ = Me.MPs.find((mps) => mps.dest === Dest.Uid);
+		const DestMp_ = Dest.MPs.find((mps) => mps.dest === Me.Uid);
+
+		const MeMp = await this.mpService.findByIdWithMps(MeMp_.id);
+		const DestMp = await this.mpService.findByIdWithMps(DestMp_.id);
+		
+		const MyMess = await this.messageService.createMessage({author: Me.Uid, text: mess, isDate: false, mp: MeMp});
+		const DestMess = await this.messageService.createMessage({author: Me.Uid, text: mess, isDate: false, mp: DestMp});
+		
+		MeMp.messages.push(MyMess);
+		DestMp.messages.push(DestMess);
+		
+		await this.mpService.updateMp(MeMp);
+		if (Me.blocked.includes(Me.Uid)) {}
+		else{
+			await this.mpService.updateMp(DestMp);
+		}
+		
+		return true;
 	}
 }

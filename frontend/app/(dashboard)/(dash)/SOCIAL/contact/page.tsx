@@ -16,11 +16,12 @@ function ComPage() {
   const [searchPlayerActive, setSearchPlayerActive] = useState(false);
   const [value, setValue] = useState('Nartyy');
   const [rd, setRd] = useState(10);
-  const {profil, MAJprofilSearched} = useProfilContext();
+  const {profil, MAJprofilSearched, page} = useProfilContext();
 
   // Reste de votre code...
 
   useEffect(() => {
+    if (page === 1) {return ;}
     toggleSearch(searchPlayerActive);
     if (profil !== 'none') {
       console.log('profile pas none : ' + profil);

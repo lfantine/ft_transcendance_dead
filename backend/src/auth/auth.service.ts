@@ -48,7 +48,27 @@ export class AuthService {
 				console.log('user not found go creating one');
 			}
 			const ImgData: Buffer = Buffer.alloc(0);
-			const newUser = await this.userService.createUser({token, refresh_token, mail: email, Uid: login, username: login, level: 0, MMR: 0, pic: ImgData, desc: 'new user', history: '', nbGamePlayed: 0, victory: 0, is42: true, password: "none", socketId: 'none', status: -1, friends: [login], recent_contact: []});
+			console.log('before');
+			const newUser = await this.userService.createUser({
+				token,
+				refresh_token, 
+				mail: email, 
+				Uid: login, 
+				username: login, 
+				level: 0, 
+				MMR: 0, 
+				pic: ImgData, 
+				desc: 'new user', 
+				history: '', 
+				nbGamePlayed: 0, 
+				victory: 0, 
+				is42: true, 
+				password: "none", 
+				socketId: 'none', 
+				status: -1, 
+				friends: [login], 
+				recent_contact: [],
+			});
 			return newUser;
 		} catch (error) {
 			console.log('an error occure during 42 User creation');
@@ -69,7 +89,25 @@ export class AuthService {
 			const hashPassword = await this.createHash(data.password);
 
 			const ImgData: Buffer = Buffer.alloc(0);
-			const newUser = await this.userService.createUser({token : 'none', refresh_token: 'none', mail: data.email, Uid:data.username, username: data.username, level: 0, MMR: 0, pic: ImgData, desc: 'new user', history: '', nbGamePlayed: 0, victory: 0, is42: false, password: hashPassword, socketId: 'none', status: -1, friends: [data.username], recent_contact: []});
+			const newUser = await this.userService.createUser({
+				token : 'none', 
+				refresh_token: 'none', 
+				mail: data.email, 
+				Uid:data.username, 
+				username: data.username, 
+				level: 0, MMR: 0, 
+				pic: ImgData, 
+				desc: 'new user', 
+				history: '', 
+				nbGamePlayed: 0, 
+				victory: 0, 
+				is42: false, 
+				password: hashPassword, 
+				socketId: 'none', 
+				status: -1, 
+				friends: [data.username], 
+				recent_contact: [],
+			});
 			return newUser;
 		} catch (error) {
 			if (error?.code === PostgresErrorCodes.UniqueViolation){

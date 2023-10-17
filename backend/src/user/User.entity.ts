@@ -1,5 +1,8 @@
 import { boolean } from "joi";
-import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
+import { type } from "os";
+import { player_spoken } from "src/interface/mp_speak/player_spoken";
+import Mp from "src/mp/Mp.entity";
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from "typeorm";
 
 @Entity()
 class User {
@@ -38,11 +41,17 @@ class User {
 	@Column("text", )
 	history: string;
 
-	@Column('text', { array: true })
+	@Column('text', { array: true, default: []})
 	friends: string[];
 
-	@Column('text', { array: true })
+	@Column('text', { array: true, default: []})
 	recent_contact: string[];
+
+	@OneToMany(type => Mp, mp => mp.user_attach, )
+	MPs: Mp[];
+
+	@Column('text', { array: true, default: []})
+	blocked: string[];
 
 	// For socket
 

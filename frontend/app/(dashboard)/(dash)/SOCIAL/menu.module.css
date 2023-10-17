@@ -59,7 +59,7 @@
 	background-color: rgb(0, 0, 95);
 	border-radius: 0 5px 5px 0;
 	border-top: 2px solid white;
-	border-right: 2px solid white;
+	border-right: 1px solid white;
 	border-bottom: 2px solid white;
 
 	margin: 0;
@@ -80,22 +80,143 @@
 
 .formTitle {
 	flex: 0 0 50px;
-
 	width: 100%;
+
+	display: flex;
+	flex-direction: row;
+	justify-content: space-evenly;
+	border-bottom: 1px solid white;
+	
+}
+
+.formTitleSelect {
 	color: white;
 	font-size: 30px;
+	padding: 5px;
+	width: 100%;
 	text-align: center;
-	margin-top: 10px;
+	border-radius: 5px;
+
+	overflow: hidden;
+
+	display: flex;
+	flex-direction: row;
+
+	/* background-color: green; */
+	position: relative;
+}
+
+.formTitleSelectOption {
+	width: 100%;
+	height: fit-content;
+	position: absolute;
+
+	background-color: rgb(0, 0, 87);
+}
+
+.slideRight {
+	animation: swipeRight 0.3s linear forwards;
+}
+
+.slideLeft {
+	animation: swipeLeft 0.3s linear forwards;
+}
+
+.enterRight {
+	animation: enterRight 0.3s linear forwards;
+}
+
+.enterLeft {
+	animation: enterLeft 0.3s linear forwards;
+}
+
+@keyframes swipeRight {
+	from {
+	  left: 0;
+	}
+	to {
+	  left: 200px;
+	}
+}
+
+@keyframes swipeLeft {
+	from {
+		right: 0;
+	}
+	to {
+		right: 200px;
+	}
+}
+
+@keyframes enterRight {
+	from {
+		left: 200px;
+	}
+	to {
+		left: 0;
+	}
+}
+
+@keyframes enterLeft {
+	from {
+		right: 200px;
+	}
+	to {
+		right: 0px;
+	}
+}
+
+.formTitleNext {
+	width: fit-content;
+	height: fit-content;
+	margin: auto 10px;
+	transition: 0.25s;
+}
+
+.formTitleNext:hover {
+	transform: scale(1.1);
+}
+
+.formTitleNextIcon {
+	width: 30px;
+	height: 30px;
 }
 
 .formContent {
 	flex: 1;
 	background-color: rgba(0, 0, 0, 0.116);
 	overflow-y: scroll;
+}
 
-	/* display: flex;
-	flex-direction: column-reverse;
-	justify-content: start; */
+.addNewChannel {
+	height: 50px;
+	border-top: 1px solid white;
+	border-right: 15px solid white;
+
+	align-items: center;
+}
+
+.addNewChannelTitle {
+	font-size: 25px;
+	color: white;
+	height: fit-content;
+	width: fit-content;
+	margin: auto;
+	margin-top: 5px;
+	padding: 2px 10px;
+
+	border: 1px solid white;
+	border-radius: 15px;
+
+	user-select: none;
+
+	background-color: rgb(2, 0, 128);
+
+	transition: 0.25s;
+}
+
+.addNewChannelTitle:hover {
+	transform: scale(1.1);
 }
 
 .selector {
@@ -196,4 +317,13 @@
 
 .hidden {
 	display: none;
+}
+
+@keyframes fadeIn {
+	from {
+	  opacity: 0;
+	}
+	to {
+	  opacity: 1;
+	}
 }

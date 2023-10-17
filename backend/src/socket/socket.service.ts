@@ -36,4 +36,23 @@ export class SocketService {
 			return {error: true};
 		}
 	}
+
+	async getSocketIdFromUid(Uid: string) {
+		try {
+			const { socketId } = await this.userService.findByUid(Uid);
+			return socketId;
+		} catch (e) {
+			return undefined;
+		}
+	}
+
+	async MajRecentUser(userName: string, meUid: any) {
+		const me = await this.userService.findByUid(meUid);
+		if (me.recent_contact.includes(userName)){
+			const index = me.recent_contact.indexOf(userName);
+			me.recent_contact.splice(index, 1);
+		}
+		me.recent_contact.push(userName);
+		this.userService.updateUser(me);
+	}
 }

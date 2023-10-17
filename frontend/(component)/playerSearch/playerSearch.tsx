@@ -4,6 +4,7 @@ import Loading2 from '../loading2/loading2';
 import { sleep } from '../other/utils';
 import style from './ps.module.css'
 import { useEffect, useState } from 'react';
+import { useSocketContext } from '@/app/(dashboard)/(dash)/layout';
 
 const PlayerSearch = ({ player, rd } : any) => {
 
@@ -11,12 +12,13 @@ const PlayerSearch = ({ player, rd } : any) => {
 	const [playerSearched, setPlayerSearched] = useState('Nartyyy');
 	const [meName, setMe] = useState('');
 	const [psSrc, setPsSrc] = useState(src);
+	const socket = useSocketContext();
 
 	useEffect(() => {
 		if (typeof document === undefined) {return ;}
 		const handleClick = (Uid: any) => {
 			return () => {
-			  console.log(Uid);
+			//   console.log(Uid);
 			  playerProfil(Uid);
 			};
 		};
@@ -43,7 +45,7 @@ const PlayerSearch = ({ player, rd } : any) => {
 				panel.innerHTML = '';
 				const List = await axios.post('https://localhost/api/dashboard/searchUser',  {pseudo: player}, { withCredentials: true});
 				const rep = List.data.data.list;
-				console.log(List.data.data);
+				// console.log(List.data.data);
 				for (let i = 0; i < rep.length; i++) {
 					if (rep[i].username === List.data.data.me)
 						continue ;
@@ -102,7 +104,7 @@ const PlayerSearch = ({ player, rd } : any) => {
 
 					const friendList = List.data.data.myFriends;
 					setMe(List.data.data.me);
-					console.log('I set me here + ' + player);
+					// console.log('I set me here + ' + player);
 					if (!friendList.includes(rep[i].Uid)){
 						let profilAddBut = document.createElement('button');
 						profilAddBut.classList.add(style.profilAddBut);
@@ -111,7 +113,7 @@ const PlayerSearch = ({ player, rd } : any) => {
 						profilAddBut.addEventListener('click', AddFriend(rep[i].Uid, List.data.data.me));
 						templine.appendChild(profilAddBut);
 					}
-					console.log('pass');
+					// console.log('pass');
 
 					let profilInteract = document.createElement('div');
 					profilInteract.classList.add(style.profilInteract);
@@ -120,7 +122,7 @@ const PlayerSearch = ({ player, rd } : any) => {
 					let profilBut = document.createElement('button') as HTMLButtonElement;
 					profilBut.classList.add(style.profilBut);
 					profilBut.innerText = 'see Profil';
-					profilBut.addEventListener('click', handleClick(rep[i].username));
+					profilBut.addEventListener('click', handleClick(rep[i].Uid));
 					profilInteract.appendChild(profilBut);
 
 					let profilBut2 = document.createElement('button');
@@ -139,16 +141,20 @@ const PlayerSearch = ({ player, rd } : any) => {
 		const searchTab = document.getElementById('searchTab');
 		const profilTab = document.getElementById('profilTab');
 		if (!searchTab || !profilTab) {return ;}
-		mep();
-		switchPanel(true);
 		const isF = document.getElementById('isFriend');
 		const isNF = document.getElementById('isNotFriend');
 		if (!isF || !isNF) {return ;}
 		isF.classList.remove(style.hidden);
 		isNF.classList.remove(style.hidden);
-		if (rd > 100)
+		if (rd > 100) {
 			playerProfil(player);
-		console.log(rd);
+			switchPanel(false);
+		}
+		else {
+			mep();
+			switchPanel(true);
+		}
+		// console.log(rd);
 		return ;
 	}, [player, rd]);
 
@@ -156,7 +162,7 @@ const PlayerSearch = ({ player, rd } : any) => {
 		const searchTab = document.getElementById('searchTab');
 		const profilTab = document.getElementById('profilTab');
 		if (!searchTab || !profilTab) {return ;}
-		console.log(onProfil);
+		// console.log(onProfil);
 		if (onProfil) {
 			searchTab.classList.remove(style.hidden);
 			profilTab.classList.add(style.hidden);
@@ -202,7 +208,7 @@ const PlayerSearch = ({ player, rd } : any) => {
 			if (data.error === true) {
 				console.log("getInfo error");
 			} else {
-				console.log(data);
+				// console.log(data);
 				setPlayerSearched(data.data.Uid);
 				const uUsername = document.getElementById('Uusername');
 				if (uUsername)
@@ -232,13 +238,13 @@ const PlayerSearch = ({ player, rd } : any) => {
 				if (win)
 					win.innerText =  '' + data.data.victory;
 				const res = await axiosI.get('https://localhost/api/dashboard/myfriends', { withCredentials: true});
-				console.log("TEST 2 + " + meName);
+				// console.log("TEST 2 + " + meName);
 				const isF = document.getElementById('isFriend');
 				const isNotF = document.getElementById('isNotFriend');
 				if (!isF || !isNotF) {return ;}
 				isF.classList.remove(style.hidden);
 				isNotF.classList.remove(style.hidden);
-				console.log(res);
+				// console.log(res);
 				if (isF) {
 					if (res.data.data.includes(data.data.Uid)) {
 						isF.classList.add(style.hidden);
@@ -252,6 +258,7 @@ const PlayerSearch = ({ player, rd } : any) => {
 					}
 				}
 			}
+			socket.emit('majRecent', {});
 		} catch (e) {
 			console.log("getInfo crash");
 		}

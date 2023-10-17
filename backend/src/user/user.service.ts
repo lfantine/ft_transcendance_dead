@@ -16,6 +16,22 @@ export class UserService {
 		throw new HttpException('User with this id does not exist !', HttpStatus.NOT_FOUND);
 	}
 
+	async findByIdWithMps(id: string): Promise<User> {
+		const user = await this.userRepository.findOne({ where: { id }, relations: ['MPs'] });
+		if (user) {
+		  return user;
+		}
+		throw new HttpException('User with this id does not exist!', HttpStatus.NOT_FOUND);
+	}
+	
+	async findByUidWithMps(Uid: string): Promise<User> {
+		const user = await this.userRepository.findOne({ where: { Uid }, relations: ['MPs'] });
+		if (user) {
+		  return user;
+		}
+		throw new HttpException('User with this id does not exist!', HttpStatus.NOT_FOUND);
+	}  
+
 	async findByMail(mail: string): Promise<User>{
 		const user = await this.userRepository.findOneBy({mail});
 		if (user) {
@@ -63,6 +79,7 @@ export class UserService {
 			this.userRepository.save(updateUser);
 			return updateUser;
 		} catch (e) {
+			console.log('failed to update user');
 			return undefined;
 		}
 	}

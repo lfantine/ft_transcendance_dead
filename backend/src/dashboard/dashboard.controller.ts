@@ -344,4 +344,65 @@ export class DashboardController {
 			return 'error';
 		}
 	}
+
+	@Post('privateMessage')
+	@UseGuards(isAuthGuard)
+	async privateMessage(@Req() request: RequestUser, @Res() response: Response) {
+		const userID = request.UserId;
+		const { dest } = request.body;
+		try {
+			if (userID === undefined)
+				throw new HttpException('Something went wrong !', HttpStatus.BAD_REQUEST);
+			const res: any = await this.dashService.GoConversation(dest, userID);
+			await this.dashService.MajRecentUser(dest, userID);
+			if (res === undefined) {
+				return response.send({
+					data: 'none',
+					error: true
+				});
+			}
+			response.send({
+				data: res.mess,
+				you: res.you,
+				dest: dest,
+				error: false
+			});
+			return res;
+		} catch (e) {
+			console.log('crashed while getting conversation');
+			response.send({
+				data: 'none',
+				error: true,
+				ErrorInfo: 'error while getting conversation'
+			});
+			return 'error';
+		}
+	}
+
+	@Post('sendPrivateMessage')
+	@UseGuards(isAuthGuard)
+	async sendPrivateMessage(@Req() request: RequestUser, @Res() response: Response) {
+		const userID = request.UserId;
+		const { dest, message } = request.body;
+		try {
+			if (userID === undefined)
+				throw new HttpException('Something went wrong !', HttpStatus.BAD_REQUEST);
+			const res: any = await this.dashService.sendMess(dest, userID, message);
+			response.send({
+				data: 'no error',
+				error: false
+			});
+			return res;
+		} catch (e) {
+			console.log('crashed while sendding message');
+			console.log(e);
+			console.log('------------------');
+			response.send({
+				data: 'none',
+				error: true,
+				ErrorInfo: 'error while sendding message'
+			});
+			return 'error';
+		}
+	}
 }
