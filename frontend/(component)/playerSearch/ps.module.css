@@ -187,7 +187,7 @@
 	min-width: 450px;
 	border-radius: 10px;
 	overflow: hidden;
-	margin: auto;
+	margin: 0 auto;
 	background-color: rgba(20, 6, 99, 0.425);
 	display: flex;
 	flex-direction: column;
@@ -243,7 +243,6 @@
 .Tinfo {
 	width: 150px;
 	min-width: 150px;
-	/* background-color: antiquewhite; */
 }
 
 .Cinfo {
@@ -287,7 +286,7 @@
 	background-color: rgb(166, 255, 166);
 	color: black;
 	font-size: 20px;
-	margin: auto;
+	margin: 20px auto;
 }
 
 .isNotFriend {
@@ -297,7 +296,7 @@
 	background-color: rgb(255, 166, 166);
 	color: black;
 	font-size: 20px;
-	margin: auto;
+	margin: 20px auto;
 }
 
 .hidden {

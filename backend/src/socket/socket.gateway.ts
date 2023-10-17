@@ -109,4 +109,14 @@ export class SocketGateway {
       console.log('failed to maj recent');
     }
   }
+
+  @SubscribeMessage('friendMaj')
+  async automajfriend(@MessageBody() data: any, @ConnectedSocket() client : Socket ) { // data = {mess, author, dest}
+    try {
+      client.emit('friendMaj', {});
+      console.log('socket received dreindmaj');
+    } catch (e) {
+      console.log('failed to maj friend');
+    }
+  }
 }

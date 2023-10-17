@@ -30,6 +30,7 @@ const PlayerSearch = ({ player, rd } : any) => {
 					console.log('successfully add ' + Friend + ' to your friend');
 					const addBut = document.getElementById(Friend + 'AddF');
 					addBut?.remove();
+					socket.emit('friendMaj', {});
 				} else {
 					console.log('failed to add ' + Friend + ' to your friend');
 				}
@@ -181,6 +182,8 @@ const PlayerSearch = ({ player, rd } : any) => {
 				addBut?.classList.add(style.hidden);
 				const rBut = document.getElementById('isNotFriend');
 				rBut?.classList.remove(style.hidden);
+				socket.emit('friendMaj', {});
+				
 			} else {
 				console.log('failed to add ' + playerSearched + ' to your friend');
 			}
@@ -194,6 +197,7 @@ const PlayerSearch = ({ player, rd } : any) => {
 			addBut?.classList.remove(style.hidden);
 			const rBut = document.getElementById('isNotFriend');
 			rBut?.classList.add(style.hidden);
+			socket.emit('friendMaj', {});
 		} else {
 			console.log('failed to remove ' + playerSearched + ' to your friend');
 		}

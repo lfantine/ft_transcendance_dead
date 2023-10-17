@@ -9,6 +9,7 @@ import { useSocketContext } from '../layout';
 import { routes } from '@/utils/route';
 import { AiOutlineUser, AiFillMessage } from "react-icons/ai";
 import { BsFillArrowRightSquareFill, BsFillArrowLeftSquareFill } from "react-icons/bs";
+import { sleep } from '@/(component)/other/utils';
 
 
 function createDOMElementWithIcon(iconComponent: any) {
@@ -91,7 +92,7 @@ export default function SocialLayout({
       baseURL: '',
     });
     const {data} = await axiosI.get('https://localhost/api/dashboard/myfriends', { withCredentials: true});
-    // console.log(data);
+    console.log(data);
     const zone = document.getElementById('user_content');
     if (zone) {zone.innerHTML = '';}
     for (let index = data.data.length-1; index >= 0; index--) {
@@ -137,22 +138,40 @@ export default function SocialLayout({
     setPage(0);
 
     panelUserRecent();
-    socketInit();
   }, [])
 
-  const socketInit = () => {
-    // console.log('socket = ' + socket);
-    if (socket !== undefined) {
-      if (page === 0) {
-        socket.on('recentMaj', () => {
-          panelUserRecent();
-        });
-      } else if (page === 2) {
-        socket.on('friendMaj', () => {
-          panelUserRecent();
-        });
+  useEffect(() => {
+    socketInit();
+    return () => {
+      if (socket !== undefined) {
+        socket.off('recentMaj');
+        socket.off('friendMaj');
       }
+    }
+  }, [formState, socket])
 
+  const socketInit = async () => {
+    if (socket !== undefined) {
+      socket.on('recentMaj', () => {
+        actionForSocket();
+      });
+
+      socket.on('friendMaj', () => {
+        actionForSocket();
+      });
+      
+    } else {
+      console.log('socket is undefined');
+    }
+  }
+
+  const actionForSocket = async () => {
+    console.log('received : ' + formState);
+    await sleep(50);
+    if (formState === 0) {
+      panelUserRecent();
+    } else if (formState === 2) {
+      panelFriends();
     }
   }
 
