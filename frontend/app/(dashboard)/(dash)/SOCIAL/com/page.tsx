@@ -9,6 +9,7 @@ import { AiOutlineSend } from "react-icons/ai";
 import { BiSend } from "react-icons/bi";
 import { useProfilContext } from '../layout';
 import { send } from 'process';
+import { BiBlock } from "react-icons/bi";
 
 function ComPage() {
 	const { push } = useRouter();
@@ -23,6 +24,9 @@ function ComPage() {
   useEffect(() => {
     if (page === 0) {return ;}
     console.log(profil);
+    const button = document.getElementById('blockBut');
+    if (!button){return ;}
+    button.classList.add(style.hidden);
     if (profil !== 'none') {
       console.log('IL Y A UN PROFIL : ' + profil);
       MEP(profil);
@@ -33,8 +37,21 @@ function ComPage() {
     return ;
   }, [profil]);
 
-  const allMep = (user: string) => {
+  const blockMep = async (user: string) => {
+    try {
+      const axiosI: AxiosInstance = axios.create({
+        baseURL: '',
+      });
+      const {data} = await axiosI.get('https://localhost/api/dashboard/blockUser' , { withCredentials: true});
+      const button = document.getElementById('blockBut');
+      if (!button){return ;}
+      button.classList.remove(style.hidden);
+      if (!data.error && data.data) {
+        setBlock(true);
+      }
+    } catch (e) {
 
+    }
   }
 
   const MEP = async (user: string) => {
@@ -168,11 +185,34 @@ function ComPage() {
     }
   }
 
+  // ######## Pour la gestion du boutons de blockage
+
+  const [isBlock, setBlock] = useState(false);
+  const [blocktext, setBlockText] = useState('Block');
+
+  useEffect(() => {
+    const button = document.getElementById('blockBut');
+
+    if (!button) {return ;}
+      button.classList.remove(style.blockedBut);
+      button.classList.remove(style.blockBut);
+    if (isBlock) {
+      setBlockText('blocked');
+      button.classList.add(style.blockedBut);
+    } else {
+      setBlockText('block');
+      button.classList.add(style.blockBut);
+    }
+
+    return () => {
+    }
+  }, [isBlock])
+
   return (
     <main className={style.main}>
       <div style={{flex: '0 0 110px'}}></div> {/* cette ligne est fait pour cancel le probleme de top margin*/}
       <div className={style.cadre}>
-        <div className={style.chatTitle}><div className={style.chatTitletext}>{playerName}</div></div>
+        <div className={style.chatTitle}><div className={style.chatTitletext}><div className={style.chatTitletextAjust}>{playerName}</div></div><div className={style.chatTitletextBoutons}><button className={style.blockBut} id='blockBut'>{blocktext} <BiBlock></BiBlock></button></div></div>
         <div className={style.chatSpace} id='chatSpace'>
           {/* <div className={style.chatSpaceDate}><div className={style.chatSpaceDateBar}></div><div className={style.chatSpaceDateText}>10/10/23</div><div className={style.chatSpaceDateBar}></div></div> */}
           {/* <div className={style.chatSpaceMessageYou}>

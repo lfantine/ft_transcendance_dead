@@ -1,4 +1,4 @@
-import Mp from "src/mp/Mp.entity";
+import Mp from "src/Emp/Mp.entity";
 
 class CreateMessageDto{
 	author: string;

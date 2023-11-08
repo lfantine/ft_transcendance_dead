@@ -1,5 +1,5 @@
 import { Request } from "express";
-import User from "src/user/User.entity";
+import User from "src/Euser/User.entity";
 
 
 interface RequestUser extends Request {

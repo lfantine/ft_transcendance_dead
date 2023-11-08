@@ -388,6 +388,45 @@ export default function SocialLayout({
     setFormState(newState);
   }
 
+  //####### Pour le formulaire de creation des channels #######
+
+  const [open, setOpen] = useState(0);
+
+  useEffect(() => {
+    const panel = document.getElementById('ChannelCreatePanel');
+    if (!panel) {return ;}
+    if (open === 0) {panel.classList.add(style.hidden);}
+    else if (open === 1) {panel.classList.remove(style.hidden);}
+  }, [open])
+
+  const [privacy, setPrivacy] = useState(0); // 0 = public / 1 = private
+
+  useEffect(() => {
+    const publicDiv = document.getElementById('publicDiv');
+    const privateDiv = document.getElementById('privateDiv');
+    const mdpDiv = document.getElementById('needMdp'); 
+    const SepaDiv = document.getElementById('mdpSepa');
+    if (!publicDiv || !privateDiv || !mdpDiv || !SepaDiv) {return ;}
+
+    if (privacy === 0) { // public 
+      publicDiv.classList.add(style.privacySelectorChoiceSelected);
+      privateDiv.classList.add(style.privacySelectorChoice);
+      mdpDiv.classList.add(style.hidden);
+      SepaDiv.classList.add(style.hidden);
+    } else if (privacy === 1) { //private
+      publicDiv.classList.add(style.privacySelectorChoice);
+      privateDiv.classList.add(style.privacySelectorChoiceSelected);
+    }
+    return () => {
+      publicDiv.classList.remove(style.privacySelectorChoiceSelected);
+      publicDiv.classList.remove(style.privacySelectorChoice);
+      privateDiv.classList.remove(style.privacySelectorChoiceSelected);
+      privateDiv.classList.remove(style.privacySelectorChoice);
+      mdpDiv.classList.remove(style.hidden);
+      SepaDiv.classList.remove(style.hidden);
+    };
+  }, [privacy]);
+
   return (
     <main className={style.main}>
       <div style={{flex: '0 0 110px'}}></div> {/* cette ligne est fait pour cancel le probleme de top margin*/}
@@ -408,10 +447,42 @@ export default function SocialLayout({
               <div className={style.formTitleNext} onClick={swipeLeft}><BsFillArrowRightSquareFill className={style.formTitleNextIcon} /></div>
             </div>
             <div className={style.formContent} id='user_content'>
-
+              
+            </div>
+            <div className={style.createChannelPanel} id='ChannelCreatePanel'>
+              <h3 className={style.createChannelPanelTitle}>Create a new channel</h3>
+              <div className={style.createChannelPanelBox}>
+                <h4 className={style.createChannelPanelBoxTitle}>Name of the channel</h4>
+                <input placeholder='enter the channel name' className={style.ChannelCreateInputName} maxLength={25} type='text' title="Only alphanumérics allowed." required></input>
+              </div>
+              <div className={style.separatorCreateChannel}></div>
+              <div className={style.createChannelPanelBox}>
+                <h4 className={style.createChannelPanelBoxTitle}>Privacy of the channel</h4>
+                <div className={style.privacySelector}>
+                  <div id='publicDiv' onClick={() => setPrivacy(0)}>Public</div>
+                  <div id='privateDiv' onClick={() => setPrivacy(1)}>Private</div>
+                </div>
+              </div>
+              <div className={style.separatorCreateChannel}></div>
+              <div className={style.createChannelPanelBox} id='needMdp'>
+                <h4 className={style.createChannelPanelBoxTitle}>Password please :</h4>
+                <input type='text' className={style.createChannelPanelBoxInputPassword} placeholder='This is a bad password' maxLength={25} pattern="[A-Za-z0-9]+" title="Only alphanumérics allowed." required></input>
+              </div>
+              <div className={style.separatorCreateChannel} id='mdpSepa'></div>
+              <div className={style.createChannelPanelBox}>
+                <h4 className={style.createChannelPanelBoxTitle}>How many place in the channel ?</h4>
+                <input type='number' className={style.createChannelPanelBoxInputPlace} placeholder='10' min={2} max={20} required></input>
+              </div>
+              <div className={style.separatorCreateChannel}></div>
+              <div className={style.createChannelPanelBox}>
+                <div className={style.createChannelPanelBoxButtonBox}>
+                  <button className={style.createChannelButton} onClick={() => setOpen(0)}>Back</button>
+                  <button className={style.createChannelButton}>Continue</button>
+                </div>
+              </div>
             </div>
             <div className={style.addNewChannel} id='createChannel'>
-              <div className={style.addNewChannelTitle}>Create channel</div>
+              <div className={style.addNewChannelTitle} onClick={() => setOpen(1)}>Create channel</div>
             </div>
           </div>
         </div>

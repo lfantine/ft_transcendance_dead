@@ -1,14 +1,14 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { UserModule } from './user/user.module';
+import { UserModule } from './Euser/user.module';
 import { AuthModule } from './auth/auth.module';
 import { DatabaseModule } from './database/database.module';
 import { ConfigModule } from '@nestjs/config';
 import { SocketModule } from './socket/socket.module';
 import { DashboardModule } from './dashboard/dashboard.module';
-import { MessageModule } from './message/message.module';
-import { MpModule } from './mp/mp.module';
+import { MessageModule } from './Emessage/message.module';
+import { MpModule } from './Emp/mp.module';
 // import { gameGateway } from './game/game.gateway';
 
 @Module({

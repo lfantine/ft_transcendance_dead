@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
 import { DashboardController } from './dashboard.controller';
 import { DashboardService } from './dashboard.service';
-import { UserModule } from 'src/user/user.module';
+import { UserModule } from 'src/Euser/user.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
-import { MessageModule } from 'src/message/message.module';
-import { MpModule } from 'src/mp/mp.module';
+import { MessageModule } from 'src/Emessage/message.module';
+import { MpModule } from 'src/Emp/mp.module';
 
 @Module({
   imports: [UserModule, MessageModule, MpModule, ConfigModule, JwtModule.registerAsync({

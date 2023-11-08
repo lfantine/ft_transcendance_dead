@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { SocketGateway } from './socket.gateway';
-import { UserModule } from 'src/user/user.module';
+import { UserModule } from 'src/Euser/user.module';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { SocketService } from './socket.service';

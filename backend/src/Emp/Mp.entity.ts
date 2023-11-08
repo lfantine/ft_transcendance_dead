@@ -1,5 +1,5 @@
-import Message from "src/message/Message.entity";
-import User from "src/user/User.entity";
+import Message from "src/Emessage/Message.entity";
+import User from "src/Euser/User.entity";
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany, ManyToOne } from "typeorm";
 
 @Entity()

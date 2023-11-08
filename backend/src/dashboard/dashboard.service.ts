@@ -1,11 +1,11 @@
 import { Injectable, Req} from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
-import { UserService } from 'src/user/user.service';
+import { UserService } from 'src/Euser/user.service';
 import { Response, Request } from 'express';
 import { SocketGateway } from 'src/socket/socket.gateway';
-import { MessageService } from 'src/message/message.service';
-import { MpService } from 'src/mp/mp.service';
+import { MessageService } from 'src/Emessage/message.service';
+import { MpService } from 'src/Emp/mp.service';
 import { player_spoken } from 'src/interface/mp_speak/player_spoken';
 
 

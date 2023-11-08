@@ -1,7 +1,7 @@
 import { boolean } from "joi";
 import { type } from "os";
 import {player_spoken} from "src/interface/mp_speak/player_spoken";
-import Mp from "src/mp/Mp.entity";
+import Mp from "src/Emp/Mp.entity";
 import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from "typeorm";
 
 @Entity()

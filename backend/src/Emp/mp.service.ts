@@ -1,7 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import Mp from './Mp.entity';
-import { ILike, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 import CreateMpDto from './CreateMp.dto';
 
 @Injectable()
